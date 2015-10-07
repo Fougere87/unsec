@@ -11,6 +11,13 @@ class Email(object):
         self.sender  = Email.extract_sender(raw)
 
 
+
+    def tokenBody(self) :
+        return Email.tokenization(self.body)
+    def tokenSubject(self) :
+        return Email.tokenization(self.subject)
+
+
     @staticmethod
     def extract_subject(raw):
         ''' extract subject '''
@@ -30,7 +37,11 @@ class Email(object):
         match = re.search(r"From:\s\".*\"\s<(?P<email>.+@.+)>", raw)
         return match.group("email")
 
-
+    @staticmethod
+    def tokenization(raw) :
+        tok = re.compile('[,-\\/.\?!;:\"\'\(\)\{\}\[\]\n*\+=]\s*')
+        news = tok.sub(" ", raw)
+        return news
 
     def __str__(self):
         return "mail de " + self.sender
