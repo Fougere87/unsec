@@ -13,3 +13,5 @@ e = Email("data/bioinfo_2014-01/9.recoded")
 print(e.tokenSubject())
 
 print(e.tokenBody())
+
+print(e.lemmatizeBody())
