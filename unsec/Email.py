@@ -21,8 +21,8 @@ class Email(object):
         ''' extract subject '''
         # line = re.search("Subject:\s.+", raw)
         # dec = re.search("(.*) (From:\s.+\n) (Subject:\s.+\n) (.*)", raw, re.DOTALL)
-        dec = re.search("(From:\s.+)(\n.*)(Subject:\s.+\n)", raw, re.DOTALL)
-        return dec.group(1)
+        dec = re.search("(From:\s.*)(\nDate:.*)(Subject:\s.+\n)(.+)", raw, re.DOTALL)
+        return dec.group(3)
 
     # def extract_subject(dec):
     #     ''' extract subject '''
