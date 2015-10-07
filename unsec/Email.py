@@ -10,25 +10,12 @@ class Email(object):
         self.body    = Email.extract_body(raw)
         self.sender  = Email.extract_sender(raw)
 
-    def salut(self):
-        print(self.nom)
-
-
-
 
     @staticmethod
     def extract_subject(raw):
         ''' extract subject '''
-        # line = re.search("Subject:\s.+", raw)
-        # dec = re.search("(.*) (From:\s.+\n) (Subject:\s.+\n) (.*)", raw, re.DOTALL)
-        dec = re.search("(From:\s.*)(\nDate:.*)(Subject:\s.+\n)(.+)", raw, re.DOTALL)
-        return dec.group(3)
-
-    # def extract_subject(dec):
-    #     ''' extract subject '''
-    #     # line = re.search("Subject:\s.+", raw)
-    #     return dec.group(3)
-
+        match = re.search(r"Subject:\s(?P<subject>.+)", raw)
+        return match.group("subject")
 
     @staticmethod
     def extract_body(raw):
@@ -40,8 +27,9 @@ class Email(object):
     @staticmethod
     def extract_sender(raw):
         ''' extract email with a regexp '''
-        line = re.search("From:\s.+",raw)
-        return line.group(0)
+        match = re.search(r"From:\s\".*\"\s<(?P<email>.+@.+)>", raw)
+        return match.group("email")
+
 
 
     def __str__(self):
