@@ -5,7 +5,6 @@ class Email(object):
     def __init__(self, filename):
         file = open(filename, "r")
         raw = "".join(file.readlines())
-        # dec = re.match("(.*) (From:\s.+\n) (Subject:\s.+\n) (.*)", raw, re.DOTALL)
         self.subject = Email.extract_subject(raw)
         self.body    = Email.extract_body(raw)
         self.sender  = Email.extract_sender(raw)
@@ -34,8 +33,12 @@ class Email(object):
     @staticmethod
     def extract_sender(raw):
         ''' extract email with a regexp '''
-        match = re.search(r"From:\s\".*\"\s<(?P<email>.+@.+)>", raw)
-        return match.group("email")
+        return "truc@tete.fr"
+        # try:
+        #     match = re.search(r"From:.*(?P<email>.+@)\s", raw)
+        #     return match.group("email")
+        # except:
+        #     return None
 
     @staticmethod
     def tokenization(raw) :
