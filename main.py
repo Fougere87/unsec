@@ -15,3 +15,5 @@ fr2 = Stop_list("stop_list/french2")
 print(e.tokenSubject())
 
 print(e.tokenBody())
+
+print(e.lemmatizeBody())

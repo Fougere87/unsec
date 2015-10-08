@@ -1,5 +1,6 @@
 import re
-
+from nltk.stem.snowball import FrenchStemmer
+# from nltk import stem
 
 class Email(object):
     def __init__(self, filename):
@@ -15,7 +16,12 @@ class Email(object):
         return Email.tokenization(self.body)
     def tokenSubject(self) :
         return Email.tokenization(self.subject)
-
+    def lemmatizeBody(self) :
+        '''French only (for now) body lemmatization'''
+        stemmer = FrenchStemmer()
+        word_list = re.split('\W+', Email.tokenization(self.body))
+        lemmatized = [stemmer.stem(word) for word in word_list]
+        return " ".join(lemmatized)
 
     @staticmethod
     def extract_subject(raw):
