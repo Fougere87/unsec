@@ -1,5 +1,6 @@
 import re
 from nltk.stem.snowball import FrenchStemmer
+from langdetect import detect
 # from nltk import stem
 
 class Email(object):
@@ -9,6 +10,7 @@ class Email(object):
         self.subject = Email.extract_subject(raw)
         self.body    = Email.extract_body(raw)
         self.sender  = Email.extract_sender(raw)
+        self.lang = Email.language_detection(raw)
 
 
 
@@ -51,6 +53,12 @@ class Email(object):
         tok = re.compile('[,-\\/.\?!;:\"\'\(\)\{\}\[\]\n*\+=]\s*')
         news = tok.sub(" ", raw)
         return news
+
+    @staticmethod
+    def language_detection(raw) :
+        return detect(raw)
+
+
 
     def __str__(self):
         return "mail de " + self.sender

@@ -15,6 +15,4 @@ def merge_lists(list1, list2):
     new_list = set(list1 + list2)  # devrait marcher
     return(new_list)
 
-merge_lists([fr1,fr2,FR3])
-
 # print(fr1.merge_lists(fr2))
