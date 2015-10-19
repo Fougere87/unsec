@@ -10,12 +10,14 @@ from unsec.Stop_list import *
 e = Email("data/bioinfo_2014-01/2.recoded")
 fr1 = create_list("stop_list/french1")
 fr2 = create_list("stop_list/french2")
-# print("type fr1 ", type(fr1))
-# print("fr2 ", fr2)
-print(len(fr1))
-print (len(fr2))
+en1 = create_list("stop_list/english1")
+en2 = create_list("stop_list/english2")
+en3 = create_list("stop_list/english3")
+merge_lists(fr1, fr2)
+merge_lists(en1, en2, en3)
 
-print(len(merge_lists(fr1,fr2))) # a tester
+
+
 print(e.lang)
 # print(e.tokenSubject())
 
