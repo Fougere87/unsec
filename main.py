@@ -19,8 +19,8 @@ merge_lists(en1, en2, en3)
 
 
 print(e.lang)
-# print(e.tokenSubject())
+print(e.tokenSubject())
 
-# print(e.tokenBody())
+print(e.tokenBody())
 
-# print(e.lemmatizeBody())
+print(e.lemmatizeBody())

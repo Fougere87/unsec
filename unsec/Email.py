@@ -1,7 +1,7 @@
 import re
 from nltk.stem.snowball import FrenchStemmer
 from langdetect import detect
-# from nltk import stem
+from nltk import stem
 
 class Email(object):
     def __init__(self, filename):

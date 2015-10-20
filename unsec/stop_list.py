@@ -13,7 +13,7 @@ def create_list(filename):
 def merge_lists(*arg):
     '''
     Allows to merge n stop words lists.
-    IN : n stop words list.
+    IN : n stop words lists.
     OUT: one single list containing all the stop words found in the n stop words lists.
     '''
     new_list = []
