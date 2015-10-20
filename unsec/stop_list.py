@@ -22,11 +22,11 @@ def merge_lists(*arg):
     return(new_list)
 
 
-def remove_stopwords(email, **stop_lists) :
-    stoplist = stop_lists[email.lang]
-    elist = str(email.tokenBody()).split(' ')
-    print(stoplist)
-     # makes a list of words from the email
-    cleanedEmail = [w for w in elist if w not in stoplist]
-    return cleanedEmail
+# def remove_stopwords(email, **stop_lists) :
+#     stoplist = stop_lists[email.lang]
+#     elist = str(email.tokenBody()).split(' ')
+#     print(stoplist)
+#      # makes a list of words from the email
+#     cleanedEmail = [w for w in elist if w not in stoplist]
+#     return cleanedEmail
 # print(fr1.merge_lists(fr2))
