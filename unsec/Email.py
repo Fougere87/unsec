@@ -1,4 +1,5 @@
 import re
+from difflib import SequenceMatcher
 from nltk.stem.snowball import FrenchStemmer
 from langdetect import detect
 from nltk import stem
@@ -13,7 +14,6 @@ class Email(object):
         self.lang = Email.language_detection(raw)
 
 
-
     def tokenBody(self) :
         return Email.tokenization(self.body)
     def tokenSubject(self) :
@@ -24,6 +24,13 @@ class Email(object):
         word_list = re.split('\W+', Email.tokenization(self.body))
         lemmatized = [stemmer.stem(word) for word in word_list]
         return " ".join(lemmatized)
+
+    def remove_stopwords(part, **stop_lists) :
+        stoplist = stop_lists[detect(part)]
+        elist = str(part).split(' ')
+         # makes a list of words from the email
+        cleanedEmail = [w for w in elist if w.lower() not in stoplist]
+        return cleanedEmail
 
 
     @staticmethod
@@ -58,6 +65,7 @@ class Email(object):
     @staticmethod
     def language_detection(raw) :
         return detect(raw)
+
 
 
 

@@ -13,14 +13,20 @@ fr2 = create_list("stop_list/french2")
 en1 = create_list("stop_list/english1")
 en2 = create_list("stop_list/english2")
 en3 = create_list("stop_list/english3")
-merge_lists(fr1, fr2)
-merge_lists(en1, en2, en3)
-
+fr = merge_lists(fr1, fr2)
+en = merge_lists(en1, en2, en3)
+# print(e.tokenBody())
+print(Email.remove_stopwords(e.tokenBody(), fr = fr ,en = en))
 
 
 print(e.lang)
 print(e.tokenSubject())
 
 print(e.tokenBody())
+
+# print(e.tokenSubject())
+
+
+
 
 print(e.lemmatizeBody())
