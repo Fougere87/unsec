@@ -1,4 +1,5 @@
 import re
+from difflib import SequenceMatcher
 from nltk.stem.snowball import FrenchStemmer
 from langdetect import detect
 # from nltk import stem
@@ -28,7 +29,7 @@ class Email(object):
         stoplist = stop_lists[detect(part)]
         elist = str(part).split(' ')
          # makes a list of words from the email
-        cleanedEmail = [w for w in elist if w not in stoplist]
+        cleanedEmail = [w for w in elist if w.lower() not in stoplist]
         return cleanedEmail
 
 
