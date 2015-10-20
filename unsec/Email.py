@@ -25,6 +25,7 @@ class Email(object):
         lemmatized = [stemmer.stem(word) for word in word_list]
         return " ".join(lemmatized)
 
+
     @staticmethod
     def extract_subject(raw):
         ''' extract subject '''

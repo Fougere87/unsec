@@ -9,7 +9,6 @@ def create_list(filename):
         mylist = myfile.read().split("\n")
     return(mylist)
 
-
 def merge_lists(*arg):
     '''
     Allows to merge n stop words lists.
@@ -21,3 +20,10 @@ def merge_lists(*arg):
         new_list = set(arg[i] + arg[i+1])
     print(len(new_list))
     return(new_list)
+
+
+def remove_stopwords(email, *stop_lists) :
+    stoplist = e.lang
+    elist = e.split(' ') # makes a list of words from the email
+    cleanedEmail = list(set(elist) - set(stoplist))
+# print(fr1.merge_lists(fr2))
