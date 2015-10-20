@@ -1,6 +1,6 @@
 import os
 from unsec import Email
-from unsec.Stop_list import *
+from unsec.stop_list import *
 
 # for file in os.walk("data/bioinfo_2014-01/*.recoded"):
 #     print(file)
