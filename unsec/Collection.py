@@ -15,7 +15,7 @@ class Collection(object):
         '''
         Returns the emails' paths from the dataset
         '''
-        for email in glob.glob(directory+"/bioinfo_2014-0?/*"):
+        for email in glob.glob(directory+"/bioinfo_2014-0?/*"): # bof.. 
             if email.endswith("recoded"):
                 yield email
 

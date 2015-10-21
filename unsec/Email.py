@@ -1,5 +1,4 @@
 import re
-from difflib import SequenceMatcher
 from nltk.stem.snowball import FrenchStemmer
 from langdetect import detect
 from nltk import stem
