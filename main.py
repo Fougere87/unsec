@@ -22,6 +22,7 @@ en3 = create_list("stop_list/english3")
 fr = merge_lists(fr1, fr2)
 en = merge_lists(en1, en2, en3)
 
+print(e.subject)
 ###
 # Test en cours
 ###

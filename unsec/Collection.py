@@ -8,8 +8,8 @@ class Collection(object):
         for email in self.get_email(directory):
             self.emails.append(Email(email))
         self.all_subjects = Collection.get_subject(self, email)
-        self.all_bodies   = Collection.get_body(self. email)
-        self.all_senders  = Collection.get_sender(self.email)
+        self.all_bodies   = Collection.get_body(self, email)
+        self.all_senders  = Collection.get_sender(self, email)
 
     def get_email(self, directory):
         '''
@@ -23,16 +23,16 @@ class Collection(object):
         '''
         Returns a list containing all the emails' subjects
         '''
-        return [Email.extract_subject(email) for email in self.emails]
+        return [email.subject for email in self.emails]
 
     def get_body(self, email):
         '''
         Returns a list containing all the emails' bodies
         '''
-        return [Email.extract_body(email) for email in self.emails]
+        return [email.body for email in self.emails]
 
     def get_sender(self, email):
         '''
         Returns a list containing all the emails' senders
         '''
-        return [Email.extract_sender(email) for email in self.emails]
+        return [email.sender for email in self.emails]
