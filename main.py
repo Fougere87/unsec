@@ -1,6 +1,6 @@
 import os
 from unsec import Email
-from unsec import Tools 
+from unsec import Tools
 from unsec import Collection
 
 # for file in os.walk("data/bioinfo_2014-01/*.recoded"):
@@ -30,7 +30,7 @@ print(Tools.stop_list("english1"))
 # fr = merge_lists(fr1, fr2)
 # en = merge_lists(en1, en2, en3)
 
-print(e.subject)
+
 ###
 # Test en cours
 ###
