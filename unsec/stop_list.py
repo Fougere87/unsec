@@ -18,7 +18,7 @@ def merge_lists(*arg):
     new_list = []
     for i in range(len(arg)-1):
         new_list = set(arg[i] + arg[i+1])
-    print(len(new_list))
+    # print(len(new_list))
     return(new_list)
 
 
