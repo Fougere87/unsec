@@ -1,6 +1,6 @@
 import os
 from unsec import Email
-from unsec.StopList import *
+from unsec import Tools 
 from unsec import Collection
 
 # for file in os.walk("data/bioinfo_2014-01/*.recoded"):
@@ -14,6 +14,12 @@ from unsec import Collection
 # Fonctionne
 ###
 e = Email("data/bioinfo_2014-01/2.recoded")
+
+
+print(Tools.stop_list("english1"))
+
+
+
 
 
 # fr1 = create_list("unsec/stop_list/french1")
