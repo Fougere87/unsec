@@ -3,6 +3,8 @@ from unsec import Email
 from unsec import Tools
 from unsec import Collection
 
+from email.header import Header
+
 # for file in os.walk("data/bioinfo_2014-01/*.recoded"):
 #     print(file)
 
@@ -13,14 +15,22 @@ from unsec import Collection
 ###
 # Fonctionne
 ###
+
 e = Email("data/bioinfo_2014-01/2.recoded")
 
 
-print(Tools.stop_list("english1"))
+h = Header(e.subject, "iso-8859-1")
+print(h)
 
+#
+#
+# print(Tools.stop_list("english1"))
+#
+#
 
-
-
+# raw = "Bonjour, je suis une fougère !!!!"
+#
+# print(Tools.clean(raw))
 
 # fr1 = create_list("unsec/stop_list/french1")
 # fr2 = create_list("unsec/stop_list/french2")
