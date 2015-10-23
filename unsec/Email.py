@@ -10,7 +10,7 @@ class Email(object):
         self.subject = Email.extract_subject(raw)
         self.body    = Email.extract_body(raw)
         self.sender  = Email.extract_sender(raw)
-        self.lang = Email.language_detection(raw)
+        self.lang    = Email.language_detection(raw)
 
 
     def tokenBody(self) :
