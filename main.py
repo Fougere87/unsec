@@ -5,17 +5,10 @@ from unsec import Tools
 from unsec import Collection
 
 
+Tools.vectorize("data/bioinfo_2014-01")
 
 
-for file in glob.glob("data/bioinfo_2014-01/*") : 
-	print(file)
-	e = Email(file)
 
-	print(e.message.get_charsets())
-	print(e.body())
-
-
-	input()
 
 
 

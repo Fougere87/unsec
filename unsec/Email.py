@@ -3,12 +3,13 @@ from unsec import Tools
 from email import message_from_file, message_from_bytes
 from email.header import decode_header, make_header 
 from langdetect import detect
+import base64
 
 
 class Email(object):
     def __init__(self, filename):
         file = open(filename, "r")
-        self.message = message_from_bytes(open(filename, "rb").read())
+        self.message = message_from_file(open(filename))
         self.charset = self.message.get_charsets()
 
     def lang(self):
@@ -28,6 +29,13 @@ class Email(object):
         result = self.message.get_payload()
         #remove empty line 
         result = result.replace('\n',' ')
+
+        # if self.message.get("Content-Transfer-Encoding") == "base64":
+        #     print("LALALALALA  ##### ")
+        #     result = base64.decodestring(result)
+            
+
+
         return result
 
     def sender(self):
