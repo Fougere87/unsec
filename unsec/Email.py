@@ -1,20 +1,34 @@
 import re
 from unsec import Tools
-from email import message_from_file
+from email import message_from_file, message_from_bytes
 from email.header import decode_header, make_header 
+from langdetect import detect
+
 
 class Email(object):
     def __init__(self, filename):
         file = open(filename, "r")
-        self.message = message_from_file(file)
+        self.message = message_from_bytes(open(filename, "rb").read())
+        self.charset = self.message.get_charsets()
+
+    def lang(self):
+        return detect(self.body())
+
 
     def subject(self):
         ''' return raw subject ''' 
-        return str(make_header(decode_header(self.message.get("Subject"))))
+        sbj = self.message.get("Subject")
+        if sbj is not None: 
+            return str(make_header(decode_header(self.message.get("Subject"))))
+        else: 
+            return None
 
     def body(self):
         ''' return raw body ''' 
-        return self.message.get_payload()
+        result = self.message.get_payload()
+        #remove empty line 
+        result = result.replace('\n',' ')
+        return result
 
     def sender(self):
         ''' return raw sender '''

@@ -1,6 +1,6 @@
 import unsec
 from nltk import stem
-from nltk.stem.snowball import FrenchStemmer
+from nltk.stem.snowball import FrenchStemmer, EnglishStemmer
 from langdetect import detect
 import re
 #====================================================================
@@ -42,9 +42,17 @@ def remove_stopwords(raw, sl) :
 	cleaned = [w for w in elist if w.lower() not in sl]
 	return ' '.join(cleaned)
 # ====================================================================
+def remove_email(raw) :
+	return re.sub(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)","",raw)
+# ====================================================================
+
+
 def clean(raw) :
 	''' main function to clean text. Tokenisation + lematization + stop word removed ''' 
 	lang   = detect(raw)
+
+	raw = remove_email(raw)
+
 	sl     = stop_list(lang)
 	result = lemmatize(remove_stopwords(tokenization(raw),sl),lang)
 	return result
