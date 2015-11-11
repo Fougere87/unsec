@@ -1,17 +1,23 @@
 import re
 from unsec import Tools
 from email import message_from_file
-from email.header import decode_header
+from email.header import decode_header, make_header 
 
 class Email(object):
     def __init__(self, filename):
         file                = open(filename, "r")
         self.message        = message_from_file(file)
-        self.subject        = Email.extract_subject(raw)
-        self.body           = Email.extract_body(raw)
-        self.sender         = Email.extract_sender(raw)
-        self.clean_subject  = Tools.clean(self.subject)
-        self.clean_body     = Tools.clean(self.body)
+        self.subject        = str(make_header(decode_header(self.message.get("Subject"))))
+        self.body           = self.message.get_payload()
+        # self.sender       = Email.extract_sender(raw)
+        # self.clean_subject = Tools.clean(self.subject)
+        self.clean_body      = Tools.clean(self.body)
+        self.clean_subject   = Tools.clean(self.subject)
+
+
+
+
+
 
 #====================================================================
     # @staticmethod
