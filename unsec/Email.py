@@ -63,6 +63,7 @@ class Email(object):
 
     @staticmethod
     def language_detection(raw) :
+        # print("language_detection : " + detect("Yesterday I went to the market and I brought carots tomatoes wine and beers"))
         return detect(raw)
 
 
