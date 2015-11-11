@@ -37,10 +37,10 @@ def lemmatize(raw, lang) :
 #====================================================================
 def remove_stopwords(raw, sl) :
 	''' remove words from raw which are found in sl list ''' 
-    elist = str(raw).split(' ')
-     # makes a list of words from the email
-    cleaned = [w for w in elist if w.lower() not in sl]
-    return ' '.join(cleaned)
+	elist = str(raw).split(' ')
+	# makes a list of words from the email
+	cleaned = [w for w in elist if w.lower() not in sl]
+	return ' '.join(cleaned)
 # ====================================================================
 def clean(raw) :
 	''' main function to clean text. Tokenisation + lematization + stop word removed ''' 

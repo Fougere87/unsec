@@ -30,9 +30,5 @@ class Email(object):
 
 
 
-
-
-
-
     def __str__(self):
         return "mail de " + self.sender
