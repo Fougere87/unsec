@@ -8,4 +8,4 @@ from email.header import Header
 e = Email("data/bioinfo_2014-01/2.recoded")
 
 
-print(e.clean_subject)
+print(e.clean_body())

@@ -7,42 +7,33 @@ class Email(object):
     def __init__(self, filename):
         file                = open(filename, "r")
         self.message        = message_from_file(file)
-        self.subject        = str(make_header(decode_header(self.message.get("Subject"))))
-        self.body           = self.message.get_payload()
-        # self.sender       = Email.extract_sender(raw)
-        # self.clean_subject = Tools.clean(self.subject)
-        self.clean_body      = Tools.clean(self.body)
-        self.clean_subject   = Tools.clean(self.subject)
+
+
+    def subject(self):
+        ''' return raw subject ''' 
+        return str(make_header(decode_header(self.message.get("Subject"))))
+
+    def body(self):
+        ''' return raw body ''' 
+        return self.message.get_payload()
+
+    def sender(self):
+        ''' return raw sender '''
+        return str(self.message.get("From"))
+
+    def clean_body(self):
+        ''' return clean body ''' 
+        return Tools.clean(self.body())
+
+    def clean_subject(self):
+        ''' return clean subject ''' 
+        return Tools.clean(self.subject())
 
 
 
 
 
 
-#====================================================================
-    # @staticmethod
-    # def extract_subject(raw):
-    #     ''' extract subject '''
-    #     match = re.search(r"Subject:\s(?P<subject>.+)", raw)
-    #     return match.group("subject")
-#====================================================================
-    # @staticmethod
-    # def extract_body(raw):
-    #     ''' extract body '''
-    #     subj = re.split("Subject:\s.+", raw)
-    #     line = subj[1]
-    #     return line
-#====================================================================
-    # @staticmethod
-    # def extract_sender(raw):
-    #     ''' extract email with a regexp '''
-    #     return "truc@tete.fr"
-    #     # try:
-    #     #     match = re.search(r"From:.*(?P<email>.+@)\s", raw)
-    #     #     return match.group("email")
-    #     # except:
-    #     #     return None
 
-#====================================================================
     def __str__(self):
         return "mail de " + self.sender
