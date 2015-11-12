@@ -4,7 +4,8 @@ from nltk.stem.snowball import FrenchStemmer, EnglishStemmer
 from langdetect import detect
 from math import log
 import glob
-
+import pickle
+import csv
 
 import re
 #====================================================================
@@ -153,3 +154,16 @@ def clean(raw) :
 
 
 	return raw
+# ====================================================================
+
+def vectorize_to_csv(collection, filename):
+
+	matrix = vectorize(collection)
+
+	with open(filename,"w") as file:
+		writer = csv.writer(file,delimiter="\t") 
+		writer.writerow(words_in_collection(collection))
+		for vector in matrix : 
+			writer.writerow(vector)
+
+# ====================================================================
