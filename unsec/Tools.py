@@ -69,6 +69,24 @@ def remove_accent(raw) :
 	return raw
 
 # ====================================================================
+def vectorize(collection) :
+	vectors = []
+	space = words_in_collection(collection)
+	for doc in collection :
+		vector = list()
+		for word in space :
+			if word in doc :
+				vector.append(True)
+			else:
+				vector.append(False)
+		vectors.append(vector)
+
+	return vectors
+
+# ====================================================================
+
+
+
 
 
 def term_freq(raw) :
@@ -82,7 +100,7 @@ def term_freq(raw) :
 def invert_doc_freq(collection) :
     '''returns a dict with the invert doc frequency of each term in the collection'''
     d = len(collection)
-    total = set([w for raw in collection for w in raw.split(" ")])
+    total = words_in_collection(collection)
     idf = {}
     for w in total :
         for raw in collection :
@@ -94,35 +112,21 @@ def invert_doc_freq(collection) :
 
 # ====================================================================
 
-
-def tf_idf(doc, idf) :
-	term_frequencies = term_freq(doc)
-	ti = {word:term_frequencies[word]*idf[word] for word in doc.split(" ")}
-	return ti
+# 
+# def vectorize_tf_idf(collection) :
+# 	idf = invert_doc_freq(collection)
+# 	ti = {}
+# 	for doc in collection :
+# 		term_frequencies = term_freq(doc)
+# 		for word in idf.key() :
+# 		 	= term_frequencies[word]*idf[word]
+#
+# 	return ti
 
 # ====================================================================
-def create_vectorial_space(collection) :
+def words_in_collection(collection) :
 
-	words = set()
-
-	for file in glob.glob(directory+"/*.recoded") :
-		print(file)
-		e = unsec.Email(file)
-		raw =  e.clean_body()
-		print(raw)
-		input("Press Enter to continue...")
-
-		# if raw is not None :
-		# 	for w in e.clean_body().split(" "):
-		# 		words.add(w)
-
-
-	print(words)
-	print("TINTIN : ",len(words))
-
-
-
-
+	return list(set([w for raw in collection for w in raw.split(" ")]))
 
 
 # ====================================================================
