@@ -167,3 +167,16 @@ def vectorize_to_csv(collection, filename):
 			writer.writerow(vector)
 
 # ====================================================================
+def vectorize_to_pickle(collection, filename):
+
+	space  = words_in_collection(collection)
+	matrix = vectorize(collection)
+	all = {"space": space, "matrix": matrix}
+
+	with open(filename, "wb") as file:
+		file.write(	pickle.dumps(all)
+)
+
+
+
+	
