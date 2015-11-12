@@ -113,21 +113,36 @@ def invert_doc_freq(collection) :
 
 # ====================================================================
 
-# 
-# def vectorize_tf_idf(collection) :
-# 	idf = invert_doc_freq(collection)
-# 	ti = {}
-# 	for doc in collection :
-# 		term_frequencies = term_freq(doc)
-# 		for word in idf.key() :
-# 		 	= term_frequencies[word]*idf[word]
-#
-# 	return ti
+
+def vectorize_tf_idf(collection) :
+	idf = invert_doc_freq(collection)
+	# print(idf)
+	space = words_in_collection(collection)
+	ti = [[]]*len(space)
+	ti[0] = space
+	n_doc = 1
+	for doc in collection :
+		term_frequencies = term_freq(doc)
+		print("document : ", n_doc, doc )
+		# print(term_frequencies)
+		for word in ti[0] :
+			ti[n_doc] = [term_frequencies[word]*idf[word] if word in doc else 0  for word in space ]
+			# print("Mot : ", word)
+			# if word in doc.split(" ") :
+			# 	# print(ti[])
+			# 	print("Adding ",term_frequencies[word]*idf[word]," à ", ti[n_doc])
+			# 	ti[n_doc].append(term_frequencies[word]*idf[word])
+			# else :
+			# 	print("Adding ",0," à ", ti[n_doc])
+			# 	ti[n_doc].append(0)
+			# print(ti[n_doc])
+		n_doc +=1
+	return ti
 
 # ====================================================================
 def words_in_collection(collection) :
 
-	return list(set([w for raw in collection for w in raw.split(" ")]))
+	return tuple(set([w for raw in collection for w in raw.split(" ")]))
 
 
 # ====================================================================
