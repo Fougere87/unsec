@@ -1,2 +1,2 @@
-langdetect==1.0.5
-nltk==3.1
+langdetect
+nltk
