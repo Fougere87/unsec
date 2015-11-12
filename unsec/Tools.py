@@ -2,6 +2,7 @@ import unsec
 from nltk import stem
 from nltk.stem.snowball import FrenchStemmer, EnglishStemmer
 from langdetect import detect
+from math import log
 import glob
 
 
@@ -9,7 +10,7 @@ import re
 #====================================================================
 
 def stop_list(lang):
-	''' return stop list array from file ''' 
+	''' return stop list array from file '''
 	filename = unsec.STOP_LIST_PATH + lang
 	try:
 		with open(filename, 'r') as myfile:
@@ -20,14 +21,14 @@ def stop_list(lang):
 
 #====================================================================
 def tokenization(raw) :
-	''' remove all punctuation caracter ''' 
+	''' remove all punctuation caracter '''
 	tok = re.compile('[,-\\/.\?!;:\"\'\(\)\{\}\[\]\n*\+=]\s*')
 	news = tok.sub(" ", raw)
 	return news
 #====================================================================
 def lemmatize(raw, lang) :
 	''' Return lemmatization of raw according language. Only french and english are supported'''
-	
+
 	if lang == 'en':
 		stemmer = EnglishStemmer() # to be checked
 
@@ -44,7 +45,7 @@ def lemmatize(raw, lang) :
 
 #====================================================================
 def remove_stopwords(raw, sl) :
-	''' remove words from raw which are found in sl list ''' 
+	''' remove words from raw which are found in sl list '''
 	elist = str(raw).split(' ')
 	# makes a list of words from the email
 	cleaned = [w for w in elist if w.lower() not in sl]
@@ -57,7 +58,7 @@ def remove_url(raw) :
 	return re.sub(r"http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+","",raw)
 # ====================================================================
 def remove_number(raw) :
-	return re.sub(r"\s\d+\s","",raw)
+	return re.sub(r"[\s(]\d+[)\s]","",raw)
 # ====================================================================
 def remove_accent(raw) :
 	raw = re.sub(r"[éèê]","e",raw)
@@ -65,21 +66,56 @@ def remove_accent(raw) :
 	raw = re.sub(r"[ôö]","o",raw)
 	raw = re.sub(r"[ïî]","i",raw)
 
-	return raw 
+	return raw
 
 # ====================================================================
-def vectorize(directory) :
+
+
+def term_freq(raw) :
+    # '''returns a dictionnary with the tf of each word (as a key) as a value'''
+	words =  raw.split(" ")
+	return {word:words.count(word)  for word in words}
+
+# ====================================================================[]
+
+
+def invert_doc_freq(collection) :
+    '''returns a dict with the invert doc frequency of each term in the collection'''
+    d = len(collection)
+    total = set([w for raw in collection for w in raw.split(" ")])
+    idf = {}
+    for w in total :
+        for raw in collection :
+            if w in raw.split(" ") :
+                idf[w] = idf.get(w,0) +1
+    for w in idf :
+        idf[w]=log(d/idf[w])
+    return idf
+
+# ====================================================================
+
+
+def tf_idf(doc, idf) :
+	term_frequencies = term_freq(doc)
+	ti = {word:term_frequencies[word]*idf[word] for word in doc.split(" ")}
+	return ti
+
+# ====================================================================
+def create_vectorial_space(collection) :
 
 	words = set()
 
-	for file in glob.glob(directory+"/*.recoded") : 
+	for file in glob.glob(directory+"/*.recoded") :
 		print(file)
 		e = unsec.Email(file)
-		raw =  e.clean_body() 
-		if raw is not None :
-			for w in e.clean_body().split(" "):
-				words.add(w)
-		
+		raw =  e.clean_body()
+		print(raw)
+		input("Press Enter to continue...")
+
+		# if raw is not None :
+		# 	for w in e.clean_body().split(" "):
+		# 		words.add(w)
+
 
 	print(words)
 	print("TINTIN : ",len(words))
@@ -93,7 +129,7 @@ def vectorize(directory) :
 
 
 def clean(raw) :
-	''' main function to clean text. Tokenisation + lematization + stop word removed ''' 
+	''' main function to clean text. Tokenisation + lematization + stop word removed '''
 	lang   = detect(raw)
 
 	if lang not in ["fr","en"] :
@@ -106,7 +142,7 @@ def clean(raw) :
 
 	sl     = stop_list(lang)
 	raw = lemmatize(remove_stopwords(tokenization(raw),sl),lang)
-	
+
 	raw = remove_accent(raw)
 
 	#raw = remove_number(raw)
