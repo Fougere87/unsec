@@ -9,8 +9,8 @@ from unsec import Collection
 coll = ["bonjour je suis suis truc", "j'aime le café", "je suis un chat chat chat"]
 print(Tools.term_freq(coll[0]))
 print(Tools.invert_doc_freq(coll))
-print(Tools.tf_idf( coll[2], Tools.invert_doc_freq(coll)))
 
+print(Tools.vectorize_tf_idf(coll)[1])
 
 
 
