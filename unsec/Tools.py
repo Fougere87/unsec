@@ -59,7 +59,7 @@ def remove_url(raw) :
 	return re.sub(r"http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+","",raw)
 # ====================================================================
 def remove_number(raw) :
-	return re.sub(r"[\s(]\d+[)\s]","",raw)
+	return re.sub(r"\b\d+\b","",raw)
 # ====================================================================
 def remove_accent(raw) :
 	raw = re.sub(r"[éèê]","e",raw)
@@ -116,26 +116,13 @@ def invert_doc_freq(collection) :
 
 def vectorize_tf_idf(collection) :
 	idf = invert_doc_freq(collection)
-	# print(idf)
 	space = words_in_collection(collection)
-	ti = [[]]*len(space)
-	ti[0] = space
-	n_doc = 1
+	ti = [[]]*(len(space)-1)
+	n_doc = 0
 	for doc in collection :
 		term_frequencies = term_freq(doc)
-		print("document : ", n_doc, doc )
-		# print(term_frequencies)
-		for word in ti[0] :
+		for word in space:
 			ti[n_doc] = [term_frequencies[word]*idf[word] if word in doc else 0  for word in space ]
-			# print("Mot : ", word)
-			# if word in doc.split(" ") :
-			# 	# print(ti[])
-			# 	print("Adding ",term_frequencies[word]*idf[word]," à ", ti[n_doc])
-			# 	ti[n_doc].append(term_frequencies[word]*idf[word])
-			# else :
-			# 	print("Adding ",0," à ", ti[n_doc])
-			# 	ti[n_doc].append(0)
-			# print(ti[n_doc])
 		n_doc +=1
 	return ti
 
@@ -173,12 +160,12 @@ def clean(raw) :
 
 def vectorize_to_csv(collection, filename):
 
-	matrix = vectorize(collection)
+	matrix = vectorize_tf_idf(collection)
 
 	with open(filename,"w") as file:
-		writer = csv.writer(file,delimiter="\t") 
+		writer = csv.writer(file,delimiter="\t")
 		writer.writerow(words_in_collection(collection))
-		for vector in matrix : 
+		for vector in matrix :
 			writer.writerow(vector)
 
 # ====================================================================
@@ -191,7 +178,3 @@ def vectorize_to_pickle(collection, filename):
 	with open(filename, "wb") as file:
 		file.write(	pickle.dumps(all)
 )
-
-
-
-	

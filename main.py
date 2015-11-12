@@ -16,7 +16,6 @@ print(Tools.invert_doc_freq(coll))
 
 
 Tools.vectorize_to_csv(coll, "data.csv")
-print(Tools.vectorize_tf_idf(coll)[1])
 
 
 
