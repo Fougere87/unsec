@@ -33,5 +33,6 @@ def random_vector(vectors):
 	for i in range(len(vectors)):
 		random_vector.append(random.choice(vectors)[i])
 	return random_vector 
+
 	
 #===============================================================
