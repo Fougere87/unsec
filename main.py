@@ -9,7 +9,7 @@ from unsec import Clustering
 coll = []
 mails = glob.glob("data/bioinfo_2014-01/*.recoded")
 for mail in mails :
-    e=Email(mail).clean_body()
+    e=Email(mail).clean_subject()
     if e == None :
         print(mail)
     else :
