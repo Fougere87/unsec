@@ -95,21 +95,26 @@ def term_freq(raw) :
 	words =  raw.split(" ")
 	return {word:words.count(word)  for word in words}
 
-# ====================================================================[]
+def term_freq2(raw, space) :
+    # '''returns a dictionnary with the tf of each word (as a key) as a value'''
+	words =  raw.split(" ")
+	return [raw.count(word) for word in space]
+# ====================================================================
 
 
 def invert_doc_freq(collection) :
-    '''returns a dict with the invert doc frequency of each term in the collection'''
-    d = len(collection)
-    total = words_in_collection(collection)
-    idf = {}
-    for w in total :
-        for raw in collection :
-            if w in raw.split(" ") :
-                idf[w] = idf.get(w,0) +1
-    for w in idf :
-        idf[w]=log(d/idf[w])
-    return idf
+	'''returns a dict with the invert doc frequency of each term in the collection'''
+	d = len(collection)
+	space = words_in_collection(collection)
+	idf = [0]*(len(space))
+	n_word = 0
+	for w in space :
+		for raw in collection :
+			if w in raw.split(" ") :
+				idf[n_word] += 1
+		n_word += 1
+	idf = [log(d/w) for w in idf]
+	return idf
 
 # ====================================================================
 
@@ -118,25 +123,16 @@ def vectorize_tf_idf(collection) :
 	idf = invert_doc_freq(collection)
 	# print(idf)
 	space = words_in_collection(collection)
-	ti = [[]]*len(space)
-	ti[0] = space
-	n_doc = 1
+	ti = []
+	n_doc = 0
 	for doc in collection :
-		term_frequencies = term_freq(doc)
-		print("document : ", n_doc, doc )
-		# print(term_frequencies)
-		for word in ti[0] :
-			ti[n_doc] = [term_frequencies[word]*idf[word] if word in doc else 0  for word in space ]
-			# print("Mot : ", word)
-			# if word in doc.split(" ") :
-			# 	# print(ti[])
-			# 	print("Adding ",term_frequencies[word]*idf[word]," à ", ti[n_doc])
-			# 	ti[n_doc].append(term_frequencies[word]*idf[word])
-			# else :
-			# 	print("Adding ",0," à ", ti[n_doc])
-			# 	ti[n_doc].append(0)
-			# print(ti[n_doc])
+		term_frequencies = term_freq2(doc,space)
+		ti.append([term_frequencies[n_word]*idf[n_word] for n_word in range(len(space))])
+
+			# ti[n_doc] = [term_frequencies[word]*idf[word] if word in doc.split(" ") else 0 for word in space ]
+		print(n_doc)
 		n_doc +=1
+
 	return ti
 
 # ====================================================================
@@ -173,12 +169,12 @@ def clean(raw) :
 
 def vectorize_to_csv(collection, filename):
 
-	matrix = vectorize(collection)
+	matrix = vectorize_tf_idf(collection)
 
 	with open(filename,"w") as file:
-		writer = csv.writer(file,delimiter="\t") 
+		writer = csv.writer(file,delimiter="\t")
 		writer.writerow(words_in_collection(collection))
-		for vector in matrix : 
+		for vector in matrix :
 			writer.writerow(vector)
 
 # ====================================================================
@@ -191,7 +187,3 @@ def vectorize_to_pickle(collection, filename):
 	with open(filename, "wb") as file:
 		file.write(	pickle.dumps(all)
 )
-
-
-
-	
