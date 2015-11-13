@@ -23,8 +23,8 @@ print(len(Tools.words_in_collection(coll)))
 matrix = Tools.vectorize_tf_idf(coll) # create data matrix
 matrixTest = [[4,2,3], [5,3,2], [12,42,54], [4,1,2], [91,87,7], [41,21,31], [51,13,67], [12,2,4], [4,1,2], [31,31,14]]
 
-k_means = cluster.Kmeans(n_clusters=4) #create k-mean objet with n clusters as param
-k_means.fit(matrixTest)
+k_means = cluster.KMeans(n_clusters=4) #create k-mean objet with n clusters as param
+k_means.fit(matrix)
 
 print(k_means.labels_)
 # Tools.vectorize_to_csv(coll, "data.csv")

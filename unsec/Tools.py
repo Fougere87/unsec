@@ -1,3 +1,4 @@
+ # coding=utf-8
 import unsec
 from nltk import stem
 from nltk.stem.snowball import FrenchStemmer, EnglishStemmer
@@ -127,9 +128,6 @@ def vectorize_tf_idf(collection) :
 	for doc in collection :
 		term_frequencies = term_freq2(doc,space)
 		ti.append([term_frequencies[n_word]*idf[n_word] for n_word in range(len(space))])
-
-			# ti[n_doc] = [term_frequencies[word]*idf[word] if word in doc.split(" ") else 0 for word in space ]
-		print(n_doc)
 		n_doc +=1
 
 	return ti
