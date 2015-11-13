@@ -95,21 +95,26 @@ def term_freq(raw) :
 	words =  raw.split(" ")
 	return {word:words.count(word)  for word in words}
 
-# ====================================================================[]
+def term_freq2(raw, space) :
+    # '''returns a dictionnary with the tf of each word (as a key) as a value'''
+	words =  raw.split(" ")
+	return [raw.count(word) for word in space]
+# ====================================================================
 
 
 def invert_doc_freq(collection) :
-    '''returns a dict with the invert doc frequency of each term in the collection'''
-    d = len(collection)
-    total = words_in_collection(collection)
-    idf = {}
-    for w in total :
-        for raw in collection :
-            if w in raw.split(" ") :
-                idf[w] = idf.get(w,0) +1
-    for w in idf :
-        idf[w]=log(d/idf[w])
-    return idf
+	'''returns a dict with the invert doc frequency of each term in the collection'''
+	d = len(collection)
+	space = words_in_collection(collection)
+	idf = [0]*(len(space))
+	n_word = 0
+	for w in space :
+		for raw in collection :
+			if w in raw.split(" ") :
+				idf[n_word] += 1
+		n_word += 1
+	idf = [log(d/w) for w in idf]
+	return idf
 
 # ====================================================================
 
@@ -117,13 +122,25 @@ def invert_doc_freq(collection) :
 def vectorize_tf_idf(collection) :
 	idf = invert_doc_freq(collection)
 	space = words_in_collection(collection)
+<<<<<<< HEAD
 	ti = [[]]*(len(space)-1)
 	n_doc = 0
 	for doc in collection :
 		term_frequencies = term_freq(doc)
 		for word in space:
 			ti[n_doc] = [term_frequencies[word]*idf[word] if word in doc else 0  for word in space ]
+=======
+	ti = []
+	n_doc = 0
+	for doc in collection :
+		term_frequencies = term_freq2(doc,space)
+		ti.append([term_frequencies[n_word]*idf[n_word] for n_word in range(len(space))])
+
+			# ti[n_doc] = [term_frequencies[word]*idf[word] if word in doc.split(" ") else 0 for word in space ]
+		print(n_doc)
+>>>>>>> 6c126596b5bcecab815e5421b0cc74b96789e91d
 		n_doc +=1
+
 	return ti
 
 # ====================================================================
