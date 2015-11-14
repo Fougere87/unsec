@@ -10,7 +10,7 @@ from sklearn import cluster
 coll = []
 mails = glob.glob("data/bioinfo_2014-01/*.recoded")
 for mail in mails :
-    e=Email(mail).clean_subject()
+    e=Email(mail).clean_body()
     if e == None :
         print(mail)
     else :
@@ -23,12 +23,13 @@ print(len(Tools.words_in_collection(coll)))
 matrix = Tools.vectorize_tf_idf(coll) # create data matrix
 matrixTest = [[4,2,3], [5,3,2], [12,42,54], [4,1,2], [91,87,7], [41,21,31], [51,13,67], [12,2,4], [4,1,2], [31,31,14]]
 
-k_means = cluster.KMeans(n_clusters=4) #create k-mean objet with n clusters as param
+k_means = cluster.KMeans(n_clusters=8) #create k-mean objet with n clusters as param
 k_means.fit(matrix)
 
 print(k_means.labels_)
 # Tools.vectorize_to_csv(coll, "data.csv")
-
+clusters = Clustering.get_clustered_docs(k_means.labels_,coll)
+[print(e) for e in clusters]
 
 
 # Clustering.kmeans(matrix, 3)
