@@ -1,38 +1,49 @@
 import glob
+from unsec import Tools
 from unsec import Email
 
 
-class Collection(object):
+class Email_Collection(object):
     def __init__(self, directory):
         self.emails = list()
-        for email in self.get_email(directory):
-            self.emails.append(Email(email))
-        self.all_subjects = Collection.get_subject(self, email)
-        self.all_bodies   = Collection.get_body(self, email)
-        self.all_senders  = Collection.get_sender(self, email)
+        self.files_list =list() #can be used to retrive the email number in the directory
+        mails = glob.glob("data/bioinfo_2014-01/*.recoded")
+        for email in mails :
+            e=Email(email)
+            if (e.clean_body() == None or e.clean_subject()== None) :
+                    print(email," is invalid, ignoring it.")
 
-    def get_email(self, directory):
-        '''
-        Returns the emails' paths from the dataset
-        '''
-        for email in glob.glob(directory+"/bioinfo_2014-0?/*"): # bof.. 
-            if email.endswith("recoded"):
-                yield email
+            else :
+                    self.emails.append(e)
+                    self.files_list.append(email)
+        self.all_cleaned_subjects = Email_Collection.get_cleaned_subjects(self, self.emails)
+        self.all_cleaned_bodies   = Email_Collection.get_cleaned_bodies(self, self.emails)
+        self.all_senders  = Email_Collection.get_senders(self, self.emails)
 
-    def get_subject(self, email):
+
+
+    # def get_email(self, directory):
+    #     '''
+    #     Returns the emails' paths from the dataset
+    #     '''
+    #     for email in glob.glob(directory): # bof..
+    #         print(email)
+    #         yield email
+
+    def get_cleaned_subjects(self, emails):
         '''
         Returns a list containing all the emails' subjects
         '''
-        return [email.subject for email in self.emails]
+        return [email.clean_subject() for email in emails]
 
-    def get_body(self, email):
+    def get_cleaned_bodies(self, emails):
         '''
         Returns a list containing all the emails' bodies
         '''
-        return [email.body for email in self.emails]
+        return [email.clean_body() for email in emails]
 
-    def get_sender(self, email):
+    def get_senders(self, emails):
         '''
         Returns a list containing all the emails' senders
         '''
-        return [email.sender for email in self.emails]
+        return [email.sender() for email in emails]

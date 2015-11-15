@@ -1,7 +1,7 @@
 import re
 from unsec import Tools
 from email import message_from_file, message_from_bytes
-from email.header import decode_header, make_header 
+from email.header import decode_header, make_header
 from langdetect import detect
 import base64
 
@@ -17,23 +17,23 @@ class Email(object):
 
 
     def subject(self):
-        ''' return raw subject ''' 
+        ''' return raw subject '''
         sbj = self.message.get("Subject")
-        if sbj is not None: 
+        if sbj is not None:
             return str(make_header(decode_header(self.message.get("Subject"))))
-        else: 
+        else:
             return None
 
     def body(self):
-        ''' return raw body ''' 
+        ''' return raw body '''
         result = self.message.get_payload()
-        #remove empty line 
+        #remove empty line
         result = result.replace('\n',' ')
 
         # if self.message.get("Content-Transfer-Encoding") == "base64":
         #     print("LALALALALA  ##### ")
         #     result = base64.decodestring(result)
-            
+
 
 
         return result
@@ -43,14 +43,14 @@ class Email(object):
         return str(self.message.get("From"))
 
     def clean_body(self):
-        ''' return clean body ''' 
+        ''' return clean body '''
         return Tools.clean(self.body())
 
     def clean_subject(self):
-        ''' return clean subject ''' 
+        ''' return clean subject '''
         return Tools.clean(self.subject())
 
 
 
     def __str__(self):
-        return "mail de " + self.sender
+        return self.sender

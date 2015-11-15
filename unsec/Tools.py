@@ -9,6 +9,20 @@ import pickle
 import csv
 
 import re
+
+# #====================================================================
+#  def create_collection(path) :
+# 	 coll = []
+# 	 mails = glob.glob(path)
+# 	 for mail in mails :
+# 	     e=Email(mail).clean_body()
+# 	     if e == None :
+# 	         print(mail, "Has no content")
+# 	     else :
+# 	         coll.append(e)
+# 	return coll
+
+
 #====================================================================
 
 def stop_list(lang):
@@ -39,9 +53,6 @@ def lemmatize(raw, lang) :
 
 
 	word_list = re.split('\W+', tokenization(raw))
-
-	print(lang)
-
 	lemmatized = [stemmer.stem(word) for word in word_list]
 	return " ".join(lemmatized)
 
@@ -88,15 +99,7 @@ def vectorize(collection) :
 # ====================================================================
 
 
-
-
-
-def term_freq(raw) :
-    # '''returns a dictionnary with the tf of each word (as a key) as a value'''
-	words =  raw.split(" ")
-	return {word:words.count(word)  for word in words}
-
-def term_freq2(raw, space) :
+def term_freq(raw, space) :
     # '''returns a dictionnary with the tf of each word (as a key) as a value'''
 	words =  raw.split(" ")
 	return [raw.count(word) for word in space]
@@ -104,10 +107,10 @@ def term_freq2(raw, space) :
 
 
 def invert_doc_freq(collection) :
-	'''returns a dict with the invert doc frequency of each term in the collection'''
+	'''returns a list with the invert doc frequency of each term in the collection'''
 	d = len(collection)
 	space = words_in_collection(collection)
-	idf = [0]*(len(space))
+	idf = [0 for x in range(len(space))]
 	n_word = 0
 	for w in space :
 		for raw in collection :
@@ -126,7 +129,7 @@ def vectorize_tf_idf(collection) :
 	ti = []
 	n_doc = 0
 	for doc in collection :
-		term_frequencies = term_freq2(doc,space)
+		term_frequencies = term_freq(doc,space)
 		ti.append([term_frequencies[n_word]*idf[n_word] for n_word in range(len(space))])
 		n_doc +=1
 
@@ -134,8 +137,7 @@ def vectorize_tf_idf(collection) :
 
 # ====================================================================
 def words_in_collection(collection) :
-
-	return tuple(set([w for raw in collection for w in raw.split(" ")]))
+	return tuple(set([w  for raw in collection for w in raw.split(" ") ]))
 
 
 # ====================================================================
@@ -146,8 +148,9 @@ def clean(raw) :
 	lang   = detect(raw)
 
 	if lang not in ["fr","en"] :
-		print("language cannot be detected .. ")
-		return None
+		print("language cannot be detected .. cleaning as if in english ")
+
+		lang = "en"
 
 	raw = remove_number(raw)
 	raw = remove_email(raw)
