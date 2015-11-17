@@ -1,16 +1,18 @@
+# coding: utf8
 import re
 from unsec import Tools
-from email import message_from_file, message_from_bytes
+from email import message_from_file, message_from_bytes, message_from_string,message_from_binary_file
 from email.header import decode_header, make_header
 from langdetect import detect
 import base64
+import chardet
 
 
 class Email(object):
     def __init__(self, filename):
         file = open(filename, "r")
-        self.message = message_from_file(open(filename))
-        self.charset = self.message.get_charsets()
+        self.message = message_from_binary_file(open(filename, "rb"))
+        self.charset = self.message.get_charsets()[0]
 
     def lang(self):
         return detect(self.body())
@@ -19,6 +21,7 @@ class Email(object):
     def subject(self):
         ''' return raw subject '''
         sbj = self.message.get("Subject")
+
         if sbj is not None:
             return str(make_header(decode_header(self.message.get("Subject"))))
         else:
@@ -26,7 +29,10 @@ class Email(object):
 
     def body(self):
         ''' return raw body '''
-        result = self.message.get_payload()
+        result = self.message.get_payload(decode=True)
+        #print(result.decode(self.charset))
+        print(result.decode(self.charset, "replace") )
+        return ""
         #remove empty line
         result = result.replace('\n',' ')
 

@@ -1,10 +1,17 @@
 import os
-cdir=  "data/bioinfo_2014-01/"
-dir_cont = [file for file in os.walk("data/bioinfo_2014-01/")][0][2]
-print(dir_cont)
-recoded_docs = [doc for doc in dir_cont if 'recoded' in doc ]
-coll = []
-for doc in recoded_docs :
-    cdoc = open(cdir+doc, "r")
-    coll.append("".join(cdoc.readlines()))
-[print(doc) for doc in coll]# print(recoded_docs)
+import glob
+from email.header import decode_header, make_header
+from email import message_from_binary_file
+from email.header import decode_header, make_header
+
+
+
+for f in glob.glob("data/bioinfo_2014-01/*"):
+    email   = message_from_binary_file(open(f,"rb"))
+    subject = str(make_header(decode_header(email.get("Subject"))))
+    charset = email.get_charsets()[0]
+    body    = email.get_payload(decode=True).decode(charset)
+    print(f)
+    print(body)
+    input("press .. ")
+

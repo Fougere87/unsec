@@ -1,2 +1,4 @@
 langdetect
 nltk
+sklearn
+scipy==0.16
