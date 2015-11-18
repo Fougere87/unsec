@@ -7,8 +7,7 @@ from unsec import Email, EmailCollection
 
 collection = EmailCollection()
 
-for f in glob.glob("data/bioinfo_2014-01/*"):
-    collection.add_file(f)
+collection.add_from_directory("data/bioinfo_2014-01")
 
 
-print(collection.at(4).get_subject())
+print(collection)

@@ -9,7 +9,16 @@ class EmailCollection(object):
 
 
     def add_file(self, filename):
-        self.paths.append(filename)
+        ''' add filename '''
+        if filename not in self.paths:
+            self.paths.append(filename)
+
+    def add_from_directory(self, directory ):
+        ''' add filenames from the directory '''
+        for f in glob.glob(directory+"/*"):
+            self.add_file(f)
+
+
 
     def get_subjects(self):
         ''' return a generator of all email subjects '''
@@ -39,5 +48,8 @@ class EmailCollection(object):
     def at(self, index):
         ''' return mail from index '''
         return Email(self.paths[index])
+
+    def __str__(self):
+        return "Collection of {} emails".format(self.count())
 
 
