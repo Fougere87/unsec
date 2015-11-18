@@ -138,7 +138,7 @@ def vectorize_tf_idf(collection) :
 
 # ====================================================================
 def words_in_collection(collection) :
-	return tuple(set([w  for raw in collection for w in raw.split(" ") ]))
+	return tuple(set([w for raw in collection for w in raw.split(" ") if w !=""]))
 
 
 # ====================================================================
@@ -157,11 +157,14 @@ def clean(raw) :
 	raw = remove_email(raw)
 	raw = remove_url(raw)
 
+
+
 	sl     = stop_list(lang)
 	raw = lemmatize(remove_stopwords(tokenization(raw),sl),lang)
 
 	raw = remove_accent(raw)
 
+	raw = re.sub(r"\s\w{1,2}\s", ' ', raw)
 	#raw = remove_number(raw)
 
 
@@ -175,6 +178,17 @@ def vectorize_to_csv(collection, filename):
 	with open(filename,"w") as file:
 		writer = csv.writer(file,delimiter="\t")
 		writer.writerow(words_in_collection(collection))
+		for vector in matrix :
+			writer.writerow(vector)
+
+# ====================================================================
+
+
+def matrix_to_csv(matrix, names, filename):
+
+	with open(filename,"w") as file:
+		writer = csv.writer(file,delimiter="\t")
+		writer.writerow(names)
 		for vector in matrix :
 			writer.writerow(vector)
 

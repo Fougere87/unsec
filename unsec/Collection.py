@@ -20,6 +20,7 @@ class Email_Collection(object):
         self.all_cleaned_subjects = Email_Collection.get_cleaned_subjects(self, self.emails)
         self.all_cleaned_bodies   = Email_Collection.get_cleaned_bodies(self, self.emails)
         self.all_senders  = Email_Collection.get_senders(self, self.emails)
+        
         print("collection créée...")
 
 

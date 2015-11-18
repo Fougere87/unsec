@@ -18,10 +18,8 @@ coll = Collection.Email_Collection("data/bioinfo_2014-01/*")
 # print(Tools.invert_doc_freq(coll.all_cleaned_subjects))
 
 
-
 matrix_sub = Tools.vectorize_tf_idf(coll.all_cleaned_subjects) # create data matrix
 matrix_bod = Tools.vectorize_tf_idf(coll.all_cleaned_bodies)
-# matrixTest = [[4,2,3], [5,3,2], [12,42,54], [4,1,2], [91,87,7], [41,21,31], [51,13,67], [12,2,4], [4,1,2], [31,31,14]]
 
 k_means = cluster.KMeans(n_clusters=4) #create k-mean objet with n clusters as param
 
@@ -36,7 +34,7 @@ print(k_means.score(matrix_sub))
 pca = decomposition.PCA(n_components=3)
 reduced_mat_bod = pca.fit(matrix_bod).transform(matrix_bod)
 print(pca.components_)
-
+Tools.matrix_to_csv(matrix_bod, Tools.words_in_collection(coll.all_cleaned_bodies), "tfidf_bod.csv")
 # Tools.vectorize_to_csv(coll, "data.csv")
 # clusters = Clustering.get_clustered_docs(k_means.labels_,coll.all_cleaned_subjects)
 # [print(e) for e in clusters]
