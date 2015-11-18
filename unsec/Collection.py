@@ -7,19 +7,21 @@ class Email_Collection(object):
     def __init__(self, directory):
         self.emails = list()
         self.files_list =list() #can be used to retrive the email number in the directory
-        mails = glob.glob("data/bioinfo_2014-01/*.recoded")
+        mails = glob.glob(directory)
+        print("creating collection...")
         for email in mails :
             e=Email(email)
-            if (e.clean_body() == None or e.clean_subject()== None) :
-                    print(email," is invalid, ignoring it.")
+            # if (e.clean_body() == None or e.clean_subject()== None) :
+            #         print(email," is invalid, ignoring it.")
+            # else :
+            self.emails.append(e)
+            self.files_list.append(email)
 
-            else :
-                    self.emails.append(e)
-                    self.files_list.append(email)
         self.all_cleaned_subjects = Email_Collection.get_cleaned_subjects(self, self.emails)
         self.all_cleaned_bodies   = Email_Collection.get_cleaned_bodies(self, self.emails)
         self.all_senders  = Email_Collection.get_senders(self, self.emails)
-
+        
+        print("collection créée...")
 
 
     # def get_email(self, directory):

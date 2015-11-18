@@ -29,12 +29,14 @@ class Email(object):
 
     def body(self):
         ''' return raw body '''
-        result = self.message.get_payload(decode=True)
+        charset = self.charset
+        result = self.message.get_payload(decode=True).decode(charset)
         #print(result.decode(self.charset))
-        print(result.decode(self.charset, "replace") )
-        return ""
+        # print(result.decode(self.charset, "replace") )
+        # result = result.replace('\n',' ')
+        return result
         #remove empty line
-        result = result.replace('\n',' ')
+
 
         # if self.message.get("Content-Transfer-Encoding") == "base64":
         #     print("LALALALALA  ##### ")

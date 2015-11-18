@@ -124,4 +124,3 @@ def kmeans(vectors, n_clusters=2, max_iter=300, n_init = 10, tol=1e-4):
 # 		result[lab].append(collection[n_lab])
 # 		n_lab+=1
 
-# 	return result

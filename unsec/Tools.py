@@ -124,6 +124,7 @@ def invert_doc_freq(collection) :
 
 
 def vectorize_tf_idf(collection) :
+	print("Vectorizing...")
 	idf = invert_doc_freq(collection)
 	space = words_in_collection(collection)
 	ti = []
@@ -132,12 +133,12 @@ def vectorize_tf_idf(collection) :
 		term_frequencies = term_freq(doc,space)
 		ti.append([term_frequencies[n_word]*idf[n_word] for n_word in range(len(space))])
 		n_doc +=1
-
+	print("Vectorization done...")
 	return ti
 
 # ====================================================================
 def words_in_collection(collection) :
-	return tuple(set([w  for raw in collection for w in raw.split(" ") ]))
+	return tuple(set([w for raw in collection for w in raw.split(" ") if w !=""]))
 
 
 # ====================================================================
@@ -156,11 +157,14 @@ def clean(raw) :
 	raw = remove_email(raw)
 	raw = remove_url(raw)
 
+
+
 	sl     = stop_list(lang)
 	raw = lemmatize(remove_stopwords(tokenization(raw),sl),lang)
 
 	raw = remove_accent(raw)
 
+	raw = re.sub(r"\s\w{1,2}\s", ' ', raw)
 	#raw = remove_number(raw)
 
 
@@ -174,6 +178,17 @@ def vectorize_to_csv(collection, filename):
 	with open(filename,"w") as file:
 		writer = csv.writer(file,delimiter="\t")
 		writer.writerow(words_in_collection(collection))
+		for vector in matrix :
+			writer.writerow(vector)
+
+# ====================================================================
+
+
+def matrix_to_csv(matrix, names, filename):
+
+	with open(filename,"w") as file:
+		writer = csv.writer(file,delimiter="\t")
+		writer.writerow(names)
 		for vector in matrix :
 			writer.writerow(vector)
 
