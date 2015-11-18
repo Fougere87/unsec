@@ -2,6 +2,7 @@
 import re
 from email import message_from_binary_file
 from email.header import decode_header, make_header
+from langdetect import detect
 
 
 
@@ -11,6 +12,7 @@ class Email(object):
             self.filename  = filename
             self.message   = message_from_binary_file(file)
             self.charset   = self.message.get_charsets()[0]
+
 
     def get_subject(self):
         ''' return raw subject '''
@@ -25,6 +27,11 @@ class Email(object):
     def get_sender(self):
         ''' return raw sender '''
         return str(self.message.get("From"))
+
+    def get_lang(self):
+        lang   = detect(self.get_body())
+        return lang
+
 
 
     def __str__(self):

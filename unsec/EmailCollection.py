@@ -7,13 +7,24 @@ class EmailCollection(object):
     def __init__(self):
         self.paths  = []
 
+    def get_emails(self, lang_filter = None):
+        ''' return a generator of all email '''
+        for filename in self.paths:
+            email = Email(filename)
+            if lang_filter is None:
+                yield email
+            elif lang_filter in ("fr","en"):
+                if email.get_lang() == lang_filter:
+                    yield email
+
+
 
     def add_file(self, filename):
         ''' add filename '''
         if filename not in self.paths:
             self.paths.append(filename)
 
-    def add_from_directory(self, directory ):
+    def add_from_directory(self, directory):
         ''' add filenames from the directory '''
         for f in glob.glob(directory+"/*"):
             self.add_file(f)

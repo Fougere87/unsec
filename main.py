@@ -1,6 +1,6 @@
 import os
 import glob
-from unsec import Email, EmailCollection, Cleaner
+from unsec import Email, EmailCollection, Cleaner, TfidfVectorizer, LogicVectorizer
 
 
 
@@ -10,7 +10,27 @@ collection = EmailCollection()
 collection.add_from_directory("data/bioinfo_2014-01")
 
 
-cleaner = Cleaner("en")
+cl = Cleaner("fr")
 
-for i in cleaner.clean_collection(collection.get_subjects()):
-    print(i)
+data = []
+
+for i in collection.get_emails():
+    data.append(cl.clean(i.get_subject()))
+
+
+
+
+
+v = LogicVectorizer(data)
+
+
+
+
+# cl = Cleaner("fr")
+
+# data = cl.clean_list(collection.get_subjects())
+
+
+
+print(v.vectorize())
+

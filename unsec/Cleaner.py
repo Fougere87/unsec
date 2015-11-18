@@ -94,9 +94,9 @@ class Cleaner(object):
         return raw
 
 #============================================================
-    def clean_collection(self, collection):
+    def clean_list(self, l):
 
-        for raw in collection:
+        for raw in l:
             yield self.clean(raw)
 
 
