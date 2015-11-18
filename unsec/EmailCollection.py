@@ -19,7 +19,6 @@ class EmailCollection(object):
             self.add_file(f)
 
 
-
     def get_subjects(self):
         ''' return a generator of all email subjects '''
         for filename in self.paths:
