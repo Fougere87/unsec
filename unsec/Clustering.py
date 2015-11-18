@@ -1,34 +1,12 @@
 import math
 import random
 from operator import add
-#===============================================================
+from unsec.Distance import *
 
 
-def manathan_distance(a, b):
-	''' a and b are vectors '''
-	if len(a) != len(b):
-		raise ValueError("a and b has not the same size")
-	distance = 0
-	for i in range(len(a)):
-		distance += b[i] - a[i]
-
-	return distance
-
-#===============================================================
 
 
-def euclidian_distance(a, b):
-	''' a and b are vectors '''
-	if len(a) != len(b):
-		raise ValueError("a and b has not the same size")
-
-	distance = 0
-	for i in range(len(a)):
-		distance += (b[i] - a[i]) ** 2
-
-	return math.sqrt(distance)
-
-#===============================================================
+# #===============================================================
 
 def barycenter(vectors) :
 	''' numpy ... I miss you '''
@@ -56,59 +34,94 @@ def random_vector(vectors):
 
 #===============================================================
 
-def kmeans(vectors, k):
-	''' k is the number of cluster '''
-	#  create clusters
-	centroids = [random_vector(vectors) for i in range(k)]
-	clusters =  [list() for i in range(k)]
+def kmeans(vectors, n_clusters=2, max_iter=300, n_init = 10, tol=1e-4):
+	''' Kmeans clustering '''
 
-	#print("debut ", centroids)
+	# Check if data is 2 dimensions
+	if len(vectors) == 0 or len(vectors[0]) == 0:
+		raise ValueError("data are not well formatted")
 
-	iter = 0
+	# select random clusters
+	centroids = random.sample(vectors, n_clusters)
+	results   = [None for i in range(len(vectors))]
 
-	while iter < 100 :
-
-
-		for c in centroids :
-			for v in c :
-				print(v,";", end="")
-		print("\n",end="")
-
+	for iter in range(max_iter):
+		distances = []
 		for v_index in range(len(vectors)):
-			min_distance = 1000000
-			clust_index = 0
-			v = vectors[v_index]
-			# loop over all centroids and compare with vector
-			for index in range(len(centroids)):
-				d = euclidian_distance(centroids[index], v)
-				# Find the minimum distance
-				if min(d, min_distance) == d:
-					clust_index = index
-					min_distance = d
+			distances.clear()
+			for c_index in range(len(centroids)):
+				distance = euclidian_distance(vectors[v_index], centroids[c_index])
+				distances.append(distance)
 
-			clusters[clust_index].append(v)
-
-
+			results[v_index] = distances.index(min(distances))
 
 
 		# Compute barycenter
-		for ci in range(len(clusters)):
-			if clusters[ci]:
-				centroids[ci] = barycenter(clusters[ci])
+		for j in range(len(centroids)):
+			sub = [vectors[i] for i in range(len(vectors)) if results[i]==j]
+			centroids[j] = barycenter(sub)
+	return results
 
-		#print("fin ", centroids)
-		iter+=1
+#===============================================================
+
+
+
+
+
+
+# 	''' k is the number of cluster '''
+# 	pass
+	#  create clusters
+	# centroids = [random_vector(vectors) for i in range(k)]
+	# clusters =  [list() for i in range(k)]
+
+	# #print("debut ", centroids)
+
+	# iter = 0
+
+	# while iter < 100 :
+
+
+	# 	for c in centroids :
+	# 		for v in c :
+	# 			print(v,";", end="")
+	# 	print("\n",end="")
+
+	# 	for v_index in range(len(vectors)):
+	# 		min_distance = 1000000
+	# 		clust_index = 0
+	# 		v = vectors[v_index]
+	# 		# loop over all centroids and compare with vector
+	# 		for index in range(len(centroids)):
+	# 			d = euclidian_distance(centroids[index], v)
+	# 			# Find the minimum distance
+	# 			if min(d, min_distance) == d:
+	# 				clust_index = index
+	# 				min_distance = d
+
+	# 		clusters[clust_index].append(v)
+
+
+
+
+	# 	# Compute barycenter
+	# 	for ci in range(len(clusters)):
+	# 		if clusters[ci]:
+	# 			centroids[ci] = barycenter(clusters[ci])
+
+	# 	#print("fin ", centroids)
+	# 	iter+=1
 
 	#print(clusters[clust_index])
 
 #===============================================================
 
-def get_clustered_docs(clustering_labels, collection) :
-	'''To recover the docs by cluster'''
-	result = [[] for x in range(len(set(clustering_labels)))]
-	n_lab = 0
-	for lab in clustering_labels :
-		result[lab].append(collection[n_lab])
-		n_lab+=1
+# def get_clustered_docs(clustering_labels, collection) :
+# 	'''To recover the docs by cluster'''
+# 	result = [[] for x in range(len(set(clustering_labels)))]
+# 	n_lab = 0
+# 	for lab in clustering_labels :
+# 		result[lab].append(collection[n_lab])
+# 		n_lab+=1
 
-	return result
+# 	return result
