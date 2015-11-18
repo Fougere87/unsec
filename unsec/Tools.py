@@ -124,6 +124,7 @@ def invert_doc_freq(collection) :
 
 
 def vectorize_tf_idf(collection) :
+	print("Vectorizing...")
 	idf = invert_doc_freq(collection)
 	space = words_in_collection(collection)
 	ti = []
@@ -132,7 +133,7 @@ def vectorize_tf_idf(collection) :
 		term_frequencies = term_freq(doc,space)
 		ti.append([term_frequencies[n_word]*idf[n_word] for n_word in range(len(space))])
 		n_doc +=1
-
+	print("Vectorization done...")
 	return ti
 
 # ====================================================================

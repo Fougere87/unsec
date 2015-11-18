@@ -112,3 +112,7 @@ def get_clustered_docs(clustering_labels, collection) :
 		n_lab+=1
 
 	return result
+
+# 
+# def get_significant_features(clustering_labels, collection) :
+#

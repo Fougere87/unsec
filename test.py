@@ -14,4 +14,3 @@ for f in glob.glob("data/bioinfo_2014-01/*"):
     print(f)
     print(body)
     input("press .. ")
-
