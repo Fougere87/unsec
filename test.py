@@ -3,7 +3,11 @@ import glob
 from email.header import decode_header, make_header
 from email import message_from_binary_file
 from email.header import decode_header, make_header
+from unsec.Clustering import kmeans
+import unsec.Distance
 
+
+print("test")
 
 
 for f in glob.glob("data/bioinfo_2014-01/*"):
