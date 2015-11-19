@@ -21,5 +21,5 @@ class LogicVectorizer(Vectorizer):
                 else:
                     vector.append(False)
             vectors.append(vector)
-
+        self.matrix = vectors
         return vectors

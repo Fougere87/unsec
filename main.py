@@ -1,36 +1,24 @@
+#!/usr/bin/python3
 import os
 import glob
-from unsec import Email, EmailCollection, Cleaner, TfidfVectorizer, LogicVectorizer
+import begin
+from unsec import Email, EmailCollection, Cleaner, TfidfVectorizer, LogicVectorizer, Clustering
+import logging
+import random
+
+from cmeans import *
+
+
+print("salut")
 
 
 
+a = [[3,4], [5,4], [56,76], [67,89], [5,2], [45,87]]
 
-collection = EmailCollection()
+b = random.sample(a, 6)
 
-collection.add_from_directory("data/bioinfo_2014-01")
-
-
-cl = Cleaner("fr")
-
-data = []
-
-for i in collection.get_emails():
-    data.append(cl.clean(i.get_subject()))
+print(a, b)
 
 
-
-
-
-v = LogicVectorizer(data)
-
-
-
-
-# cl = Cleaner("fr")
-
-# data = cl.clean_list(collection.get_subjects())
-
-
-
-print(v.vectorize())
+cmean = FuzzyCMeans(a,b)
 

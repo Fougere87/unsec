@@ -36,6 +36,7 @@ def random_vector(vectors):
 
 def kmeans(vectors, n_clusters=2, max_iter=300, n_init = 10, tol=1e-4):
 	''' Kmeans clustering '''
+	print("start kmeans ")
 
 	# Check if data is 2 dimensions
 	if len(vectors) == 0 or len(vectors[0]) == 0:

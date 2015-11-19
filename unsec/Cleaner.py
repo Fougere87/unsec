@@ -8,7 +8,7 @@ class Cleaner(object):
         self.lang            = lang
 
         if self.lang not in ("fr","en"):
-            raise ValueError("{} this language are not supported".format(self.lang))
+            raise ValueError("{} this language is not supported".format(self.lang))
 
         if self.lang == "fr":
             self.add_stop_list(unsec.STOP_LIST_PATH+"fr")
@@ -89,8 +89,10 @@ class Cleaner(object):
         raw = self.remove_url(raw)
         raw = self.remove_stopwords(self.tokenization(raw))
         raw = self.steamming(raw)
-
         raw = self.remove_accent(raw)
+        #REMOVE 2-mers
+        raw = re.sub(r"\s\w{1,2}\s", ' ', raw)
+
         return raw
 
 #============================================================

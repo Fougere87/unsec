@@ -42,4 +42,5 @@ class TfidfVectorizer(Vectorizer):
             ti.append([term_frequencies[n_word]*idf[n_word] for n_word in range(len(space))])
             n_doc +=1
         print("Vectorization done...")
+        self.matrix = ti
         return ti
