@@ -13,6 +13,7 @@ from unsec.clusterizer import Clusterizer
 from unsec.kmeans import KMeans
 from unsec.cmeans import CMeans
 from unsec.tools import *
+from unsec.small_email_collection import SmallEmailCollection
 
 
 
