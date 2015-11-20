@@ -1,10 +1,10 @@
 import csv
 
 class Vectorizer(object):
-    def __init__(self, collection):
-        self.collection = collection
+    def __init__(self):
         self.matrix     = None
-        print("start vectorize")
+        self.raws       = None
+
 
 
 # ====================================================================
@@ -16,7 +16,7 @@ class Vectorizer(object):
 # ====================================================================
 
     def unique_terms(self):
-        return tuple(set([w for raw in self.collection for w in raw.split(" ") if w !=""]))
+        return tuple(set([w for raw in self.raws for w in raw.split(" ") if w !='']))
 
 # ====================================================================
 
@@ -29,5 +29,3 @@ class Vectorizer(object):
             writer.writerow(self.unique_terms())
             for vector in self.matrix :
                 writer.writerow(vector)
-
-
