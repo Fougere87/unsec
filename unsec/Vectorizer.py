@@ -1,6 +1,0 @@
-
-def Vectorizer(object):
-    pass
-
-
-

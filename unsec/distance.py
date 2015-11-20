@@ -10,7 +10,6 @@ def euclidian_distance(a,b ):
 
 #===============================================================
 
-
 def manathan_distance(a,b):
     ''' a and b are vector '''
     if len(a) != len(b):
