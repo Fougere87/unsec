@@ -8,7 +8,10 @@ from unsec import Email, EmailCollection, Cleaner, TfidfVectorizer, LogicVectori
 from unsec import Clusterizer, Cluster, SmallEmailCollection
 
 
+print("test")
 
+
+c = SmallEmailCollection()
 
 
 
