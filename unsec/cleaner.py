@@ -146,7 +146,7 @@ class Cleaner(object):
         raw = self.remove_stopwords(self.tokenization(raw))
         raw = self.steamming(raw)
         raw = self.remove_accent(raw)
-        raw = self.remove_shortwords(raw,4)
+        raw = self.remove_shortwords(raw,2)
         raw = self.remove_regexp_rules(raw)
 
         # #REMOVE 2-mers
@@ -161,5 +161,3 @@ class Cleaner(object):
         """
         for raw in l:
             yield self.clean(raw)
-
-

@@ -3,9 +3,9 @@ from unsec import Vectorizer
 from math import log
 
 class LogicVectorizer(Vectorizer):
-    def __init__(self,collection):
+    def __init__(self):
         # CALL PARENT CLASS
-        super(LogicVectorizer,self).__init__(collection)
+        super(LogicVectorizer,self).__init__()
 
 # ====================================================================
 #   ABSTRACT METHOD TO REDEFINE IN SUBCLASS
@@ -13,7 +13,7 @@ class LogicVectorizer(Vectorizer):
     def vectorize(self):
         vectors = []
         space = self.unique_terms()
-        for doc in self.collection :
+        for doc in self.raws :
             vector = list()
             for word in space :
                 if word in doc :
