@@ -1,0 +1,13 @@
+Compareads et Commet
+
+Pour rappel, la métagénomique vise à étudier le contenu génétique et génomique d'un milieu donné. On passe généralement par un séquençage NGS et on récupère un grand nombre de courtes séquences d'ADN (lectures, ou "reads") pour chaque échantillon biologique analysé.
+
+Toujours pour rappel, le filtre de Bloom est une structure de données simpliste qui sert à tester si un élément fait partie d'un ensemble de données ou non. Cette structure a l'avantage d'être très économe en mémoire et très rapide en exécution. Par contre, il est possible d'avoir des faux-positifs.
+
+Alors, comment fusionner ces deux concepts ?
+
+On peut imaginer indexer toutes les séquences d'un échantillon métagénomique A dans le filtre de Bloom, puis tester chaque séquence d'un échantillon B pour savoir si elle est présente dans A ou non ! On obtient ainsi la liste et le nombre de séquences similaires entre deux échantillons métagénomique et on parle alors de métagénomique comparative.
+
+Plus exactement on ne va pas indexer les séquences, mais indexer tous les k-mers de chaque séquence. Un k-mer est une sous séquence de taille k. Par exemple la séquence GTAATAC se décompose en six 3-mers : GTA, TAA, AAT, ATA, TAC. Elle se décompose aussi en trois 5-mers : GTAAT, TAATA et AATAC. Et ainsi de suite pour des 1-mers, 2-mers etc.
+
+On n'indexe pas directement les séquences mais les k-mers pour pouvoir identifier des séquences "proches" et pas complètement identiques. Si j'indexe GTAATAC dans le filtre de Bloom, et qu'ensuite je teste si TAATACT y est, la réponse sera non ; avec des séquences de 100 paires de bases, il n'y aura donc aucune séquence communes ente les deux jeux de données.

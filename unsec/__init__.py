@@ -1,5 +1,6 @@
 import os
 STOP_LIST_PATH = os.path.dirname(__file__)+"/stop_list/"
+DATASET_PATH   = os.path.dirname(__file__)+"/dataset/"
 
 
 from unsec.email import Email
@@ -16,3 +17,8 @@ from unsec.clusterizer import Clusterizer
 from unsec.kmeans import KMeans
 from unsec.cmeans import CMeans
 from unsec.tools import *
+from unsec.small_email_collection import SmallEmailCollection
+
+
+
+

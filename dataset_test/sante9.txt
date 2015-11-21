@@ -1,0 +1,5 @@
+Interview : comment contrôler une machine par la pensée ?
+
+Pour l’instant, l’interface Homme-machine est souvent limitée à des outils physiques, comme un clavier ou une souris. Cependant, il existe déjà des moyens pour interagir avec un ordinateur par la pensée. Futura-Sciences a rencontré Maureen Clerc, chercheuse à l’Inria (Institut national de recherche en informatique et en automatique), lors de son allocution à TedxCannes, afin qu’elle nous en parle plus en détail.
+
+Il existe deux types d’interactions permettant à l’Homme de contrôler une machine par la pensée. La première permet de contrôler chaque action de l'objet, comme un bras robot par exemple. La seconde laisse l'utilisateur donner des ordres simples afin d'effectuer des tâches complexes et préprogrammées.
