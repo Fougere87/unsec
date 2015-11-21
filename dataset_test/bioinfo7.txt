@@ -1,0 +1,10 @@
+3D XPoint : une nouvelle technologie de stockage
+
+Vous n'avez pas encore équipé votre ordinateur de SSD ? Et bien vous pouvez abandonner le projet… En effet Intel, en partenariat avec Micron, a présenté le 28 juillet une nouvelle technologie de stockage 3D XPoint (prononcez trois dés ixe point three di cross point).
+
+3D XPoint est bien plus rapide que le stockage flash équipant les SSD, mais aussi votre smartphone, votre clé usb ou votre montre connectée. L'ordre de grandeur annoncée est de 1 000 fois. Autrement dit la latence de ces supports de stockage sera en nanosecondes contre des millisecondes pour les SSD. On se rapproche de plus en plus de la vitesse des mémoires de type DRAM (la mémoire vive qui équipe votre ordinateur) ! Mais en beaucoup moins cher !
+
+IntelEt contrairement aux stockage flash, Intel annonce que ce nouveau support ne sera pas affecté par le nombre de cycles d'écriture.
+
+Et attention, ce n'est pas une annonce d'un projet qui pourrait éventuellement voir le jour un de ces quatre… Non non non. La commercialisation pour le grand public est prévu pour 2016, et même dès cette année pour certains clients triés sur le volet. Demain donc !
+- See more at: http://bioinfo-fr.net/3d-xpoint-une-nouvelle-technologie-de-stockage#sthash.9xOvNR8q.dpuf

@@ -1,0 +1,10 @@
+Aux origines de la bioinformatique
+
+Pour changer des tutoriels et des perspectives sur l’avenir de la bioinformatique, je vous propose aujourd’hui un retour aux sources. En effet, nous allons voir comment est née la bioinformatique. Nolwenn vous en avait déjà parlé ici, mais plus d'un point de vue méthodologique.
+
+S’interroger sur les origines de la bioinformatique nous permettra de répondre (ou pas) à la question « Qu’est-ce que la bioinformatique ? » et nous amènera également à faire un peu de philosophie des sciences. En effet, la bioinformatique est-elle une discipline scientifique ou une technique scientifique ?
+
+Cette dernière question se pose pour de nombreuses disciplines scientifiques (sinon toutes) et depuis longtemps. Le savant grec Aristote s’interrogeait déjà, dans l’Ethique à Nicomaque sur la différence entre l’épistèmé (les connaissances scientifiques) et la techné (la technique) auxquelles il ajoutait la phronesis (la sagacité). [0]
+
+Peut-être avez-vous déjà entendu parler de biologie computationnelle ? Certains considèrent la biologie computationnelle comme la science et la bioinformatique comme la technique lui étant associée. Mais cette distinction n’a vraiment lieu qu’en anglais. D’ailleurs la société savante internationale de la bioinformatique est nommée « International Society for Computational Biology » (ISCB), alors que la société savante française est nommée « Société Française de Bioinformatique » (SFBI). En effet en français le mot « informatique » désigne à la fois la science et la technique, ce qui n’est pas le cas en anglais. D’ailleurs la frontière entre science et technique est très mince et la science a besoin de la technique qui elle même a besoin de la science. Dans la pratique, rares sont ceux qui sont dans la science pure ou dans la technique pure, en tout cas en bioinformatique.
+
