@@ -6,8 +6,10 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn import  decomposition
+from sklearn.metrics import pairwise
+from sklearn import mixture
 from unsec import Email, EmailCollection, Cleaner, TfidfVectorizer, LogicVectorizer
-from unsec import Clusterizer, Cluster, SKMeanAlgo
+from unsec import Clusterizer, Cluster, SKMeanAlgo, Hierarch
 
 
 
@@ -21,12 +23,26 @@ engine.set_vectorizer(TfidfVectorizer())
 engine.compute_cleaner()
 engine.compute_vectors()
 
-for n in range(2,50) :
-    engine.set_algo(SKMeanAlgo(n_clusters = n))
-    engine.groups = engine.algorithm.run(engine.vectorizer.matrix)
-    engine.compute_clusters()
-    print(engine.algorithm.k_means.inertia_)
-#
+distances = pairwise.pairwise_distances(engine.vectorizer.matrix, metric ='cosine')
+print(len(distances))
+
+engine.set_algo(Hierarch(n_clusters = 4))
+engine.groups = engine.algorithm.run(engine.vectorizer.matrix)
+engine.compute_clusters()
+for c in engine.clusters :
+    print("CLUSTER====================")
+    for e in c :
+        print(e)
+
+# print(engine.algorithm.k_means.inertia_)
+
+
+# for n in range(2,50) :
+#     engine.set_algo(SKMeanAlgo(n_clusters = n))
+#     engine.groups = engine.algorithm.run(engine.vectorizer.matrix)
+#     engine.compute_clusters()
+#     print(engine.algorithm.k_means.inertia_)
+# #
 # matrix_sub = Tools.vectorize_tf_idf(coll.all_cleaned_subjects) # create data matrix
 # matrix_bod = Tools.vectorize_tf_idf(coll.all_cleaned_bodies)
 # # Tools.matrix_to_csv(matrix_bod, Tools.words_in_collection(coll.all_cleaned_bodies), "tfidf_bod.csv")

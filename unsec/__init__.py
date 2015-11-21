@@ -11,6 +11,7 @@ from unsec.logic_vectorizer import LogicVectorizer
 from unsec.cluster import Cluster
 from unsec.algo import Algo
 from unsec.skmean_algo import SKMeanAlgo
+from unsec.hierarchical_algo import Hierarch
 from unsec.clusterizer import Clusterizer
 from unsec.kmeans import KMeans
 from unsec.cmeans import CMeans
