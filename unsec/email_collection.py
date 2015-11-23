@@ -3,7 +3,7 @@
 """email_collection.py: EmailCollection is a container for Email class """
 
 __author__      = "Sacha Schutz - Hugo Mayer"
-__copyright__   = "Copyright 2009, labsquare"
+__copyright__   = "Copyright 2015, labsquare"
 __license__     = "GPL3"
 __email__       = "sacha@labsquare.org"
 

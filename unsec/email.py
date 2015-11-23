@@ -3,7 +3,7 @@
 """Email.py: Email parser from file """
 
 __author__      = "Sacha Schutz - Hugo Mayer"
-__copyright__   = "Copyright 2009, labsquare"
+__copyright__   = "Copyright 2015, labsquare"
 __license__     = "GPL3"
 __email__       = "sacha@labsquare.org"
 
