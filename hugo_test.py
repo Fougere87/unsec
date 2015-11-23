@@ -24,9 +24,9 @@ engine.compute_cleaner()
 engine.compute_vectors()
 
 distances = pairwise.pairwise_distances(engine.vectorizer.matrix, metric ='cosine')
-print(len(distances))
+print(distances[:100])
 
-engine.set_algo(Hierarch(n_clusters = 4))
+engine.set_algo(Hierarch(n_clusters = 15, affinity = "cosine"))
 engine.groups = engine.algorithm.run(engine.vectorizer.matrix)
 engine.compute_clusters()
 for c in engine.clusters :

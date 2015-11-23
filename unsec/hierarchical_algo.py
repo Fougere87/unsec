@@ -3,13 +3,13 @@ from sklearn import cluster
 
 
 class Hierarch(Algo) :
-    def __init__(self, n_clusters = 3):
+    def __init__(self, n_clusters = 3, affinity = 'euclidian'):
         super(Hierarch, self).__init__()
         self.n_clusters = n_clusters
         self.centroids = []
         self.distances = []
+        self.affinity = affinity
         self.k_means = None
     def run(self, matrix) :
-        self.hierar = cluster.AgglomerativeClustering(n_clusters= self.n_clusters)
+        self.hierar = cluster.AgglomerativeClustering(n_clusters= self.n_clusters, affinity =self.affinity, linkage = 'average' )
         return self.hierar.fit_predict(matrix)
-        
