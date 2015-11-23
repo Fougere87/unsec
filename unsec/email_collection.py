@@ -10,11 +10,12 @@ __email__       = "sacha@labsquare.org"
 import re
 import glob
 from unsec import Email
-
+import logging
 
 class EmailCollection(object):
     def __init__(self):
         self.paths  = []
+
 
     def get_emails(self, lang_filter = None):
         """
@@ -36,8 +37,12 @@ class EmailCollection(object):
         add email from filename
         @param string filename
         """
+        log = logging.getLogger(__name__)
+
         if filename not in self.paths:
             self.paths.append(filename)
+            log.debug("add {}".format(filename))
+
 
     def add_from_directory(self, directory):
         """
@@ -93,11 +98,16 @@ class EmailCollection(object):
         return Email(self.paths[index])
 
 
-    def keep_lang(self, lang="fr"):
+    def keep_lang(self, lang="fr", debug=True):
+
+        log = logging.getLogger(__name__)
+        log.info("Fitering language : {}".format(lang))
         paths_to_keeps = []
         for email in self.get_emails():
             if email.get_lang() == lang:
                 paths_to_keeps.append(email.filename)
+                log.debug("keep file {}".format(email.filename))
+
 
         self.paths = paths_to_keeps
 

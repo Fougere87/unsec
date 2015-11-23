@@ -13,7 +13,6 @@ from email.header import decode_header, make_header
 from langdetect import detect
 
 
-
 class Email(object):
     def __init__(self, filename = None):
         """

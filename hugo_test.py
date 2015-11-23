@@ -10,12 +10,14 @@ from sklearn.metrics import pairwise
 from sklearn import mixture
 from unsec import Email, EmailCollection, Cleaner, TfidfVectorizer, LogicVectorizer
 from unsec import Clusterizer, Cluster, SKMeanAlgo, HierarchicalAlgo
-
+import unsec
+# import logging
+# logging.basicConfig(level=logging.INFO)
 
 
 collection = EmailCollection()
-collection.add_from_directory("data/bioinfo_2014-01/")
-collection.keep_lang("en")
+collection.add_from_directory(unsec.LARGE_DATASET_PATH)
+collection.keep_lang("fr")
 
 
 engine   = Clusterizer(collection)
@@ -24,17 +26,14 @@ engine.set_vectorizer(TfidfVectorizer())
 engine.run_cleaner()
 engine.run_vectorizer()
 
-distances = pairwise.pairwise_distances(engine.vectorizer.matrix, metric ='cosine')
-print(distances[:100])
 
 engine.set_algorithm(HierarchicalAlgo(n_clusters = 4, affinity = "cosine"))
 
 engine.run_algorithm()
 engine.compute_clusters()
-for c in engine.clusters :
-    print("CLUSTER====================")
-    for e in c :
-        print(e)
+
+
+print(engine.to_json())
 
 # print(engine.algorithm.k_means.inertia_)
 

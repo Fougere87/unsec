@@ -7,26 +7,27 @@ from mpl_toolkits.mplot3d import Axes3D
 from unsec import Email, EmailCollection, Cleaner, TfidfVectorizer, LogicVectorizer
 from unsec import Clusterizer, Cluster, SmallEmailCollection, HierarchicalAlgo, SKMeanAlgo
 import unsec
-print("test")
+import logging
+
+
+
+#logging.basicConfig(level=logging.DEBUG)
 
 
 collection = EmailCollection()
 
-collection.add_from_directory("data/bioinfo_2014-01")
+collection.add_from_directory(unsec.MEDIUM_DATASET_PATH)
 collection.keep_lang("fr")
 
 
-for e in collection:
-    print(e)
+c = Clusterizer(collection)
+c.set_vectorizer(TfidfVectorizer())
+c.set_algorithm(HierarchicalAlgo(n_clusters=2, affinity = "cosine"))
+
+c.compute()
 
 
-# c = Clusterizer(collection)
-# c.set_vectorizer(TfidfVectorizer())
-# c.set_algo(HierarchicalAlgo(n_clusters=2, affinity = "cosine"))
-
-# c.compute_cleaner()
-# c.compute_vectors()
-
+print(c.to_json())
 
 
 # c.vectorizer.to_csv("out.csv")
