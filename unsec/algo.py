@@ -3,4 +3,5 @@ class Algo(object) :
         pass
 
     def run(self, matrix) :
-        pass
+        """ Abstract method to be redefine on each childs """
+        raise NotImplemented()

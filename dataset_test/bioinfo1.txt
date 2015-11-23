@@ -1,8 +1,0 @@
-Une licence? Pour quoi faire...
-
-Cet article ne parle pas de la formation universitaire, ni des obligations des débits de boisson. Mais du petit texte qu'on vous demande de lire avant d'installer un logiciel ou qu'on cite en bas des pages des sites internet. Pour vous faire gagner du temps, voici, par exemple, ce que vous trouverez en bas de cette page :
-
-Il existe une licence s'appellant CC BY-SA 2.0 sous laquelle tous les contenus du site sont publiés mais il existe une légère exception pour les scripts et les fichiers binaires. Cette licence est disponible sur cette page, c'est un texte juridique complexe qui sera difficile à lire pour le commun des mortels, à savoir nous autres utilisateurs.
-
-En quoi cela nous concerne-t-il ? Si vous publiez une œuvre de l'esprit comme une image, un texte, du code source, un dessin, un schéma, etc., celle-ci tombe sous les règles du droit d'auteur (en France cf. article L112-2 du code de la propriété intellectuelle). Donc personne ne peut utiliser votre œuvre de l’esprit sans que vous ne l'y autorisiez expressément. Ça ne pose pas trop de problèmes pour les œuvres d'art, mais peut devenir gênant pour les logiciels par exemple. Imaginez-vous devoir demander l'autorisation aux auteurs à chaque fois que vous voulez lancer un logiciel ? Non, voilà pourquoi les licences existent et nous allons vous présenter les différentes grandes familles dans cet article.
-

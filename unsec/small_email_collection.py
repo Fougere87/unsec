@@ -1,6 +1,9 @@
-from unsec import EmailCollection
+from unsec import EmailCollection, Email
 from unsec import DATASET_PATH
+
 import glob
+from email.message import EmailMessage
+
 
 class SmallEmailCollection(EmailCollection):
     def __init__(self):
@@ -11,7 +14,16 @@ class SmallEmailCollection(EmailCollection):
                 raws = file.read().split("\n")
                 subject = raws[0]
                 body = "\n".join(raws[1:])
-                print(body)
-                input()
+
+                message = EmailMessage()
+                message["Subject"] = subject
+                message.set_payload(body, "utf8")
+
+                email = Email()
+                email.from_bytes(message.as_bytes())
+
+
+
+
 
 

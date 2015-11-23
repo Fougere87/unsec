@@ -11,7 +11,7 @@ class Vectorizer(object):
 #   ABSTRACT METHOD TO REDEFINE IN SUBCLASS
 
     def vectorize(self):
-        return None
+        raise NotImplemented()
 
 # ====================================================================
 

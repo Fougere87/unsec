@@ -10,33 +10,48 @@ class Clusterizer(object):
         @arg string email_collection    this should be an EmailCollection
         """
         self.email_collection = email_collection
+        # Contains collection of email collections ex [[a,b], [a,b,c]]
         self.clusters   = []
         self.algorithm  = None
         self.vectorizer = None
+        # Contains list of groups for each email ex:[1,2,1,1,2]
         self.groups     = []
-        # self.by = Clusterizer.
-        self.cleaner = Cleaner()
-    def set_algo(self, algorithm: Algo) :
+        self.cleaner    = Cleaner()
+        self.target     = "subject"
+
+    def set_algorithm(self, algorithm: Algo) :
+        """ set Algo to use """
         self.algorithm = algorithm
 
     def set_vectorizer(self, vectorizer: Vectorizer) :
+        """ set Vectorizer to use """
         self.vectorizer  = vectorizer
 
-    def compute_vectors(self, verbose = True):
+    def run_vectorizer(self, verbose = True):
+        """ start vectorizer """
         self.vectorizer.vectorize()
 
-    def compute_cleaner(self, verbose = True):
+    def run_cleaner(self, verbose = True):
+        """ clean collection and fill vectorizer """
         raws = []
         for email in self.email_collection:
-            raws.append(self.cleaner.clean(email.get_body()))
+            source = str()
+            if self.target == "subject":
+                source = email.get_subject()
+            if self.target == "body":
+                source = email.get_body()
+            raws.append(self.cleaner.clean(source))
         self.vectorizer.raws = raws
 
-    def compute(self, verbose = True):
-        self.compute_cleaner()
-        self.compute_vectors()
-        self.groups= self.algorithm.run(self.vectorizer.matrix)
-        self.compute_clusters()
+    def run_algorithm(self, verbose = True):
+        self.groups = self.algorithm.run(self.vectorizer.matrix)
 
+
+    def compute(self, verbose = True):
+        self.run_cleaner()
+        self.run_vectorizer()
+        self.run_algorithm()
+        self.compute_clusters()
 
 
     def compute_clusters(self):
