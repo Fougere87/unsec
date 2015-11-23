@@ -1,6 +1,5 @@
 from math import *
 from decimal import Decimal
-from random import random
 
 def euclidian_distance(a,b ):
     ''' a and b are vector '''

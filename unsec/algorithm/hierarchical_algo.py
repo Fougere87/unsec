@@ -1,4 +1,4 @@
-from unsec import Algo
+from unsec.algorithm import Algo
 from sklearn import cluster
 
 

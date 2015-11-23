@@ -1,53 +1,49 @@
 #!/usr/bin/python3
 import os
-import glob
-import matplotlib.pyplot as plt
-import matplotlib as mpl
-from mpl_toolkits.mplot3d import Axes3D
-from unsec import Email, EmailCollection, Cleaner, TfidfVectorizer, LogicVectorizer
-from unsec import Clusterizer, Cluster, SmallEmailCollection, HierarchicalAlgo, SKMeanAlgo
 import unsec
 import logging
 
+from unsec.algorithm import HierarchicalAlgo, KMeanAlgo
+from unsec.vectorizer import TfidfVectorizer
+from unsec import EmailCollection
+from unsec import Clusterizer
 
 
-#logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 
 collection = EmailCollection()
-
 collection.add_from_directory(unsec.MEDIUM_DATASET_PATH)
 collection.keep_lang("fr")
 
 
 c = Clusterizer(collection)
 c.set_vectorizer(TfidfVectorizer())
-c.set_algorithm(HierarchicalAlgo(n_clusters=2, affinity = "cosine"))
+c.set_algorithm(KMeanAlgo(n_clusters=4))
 
 c.compute()
 
 
-print(c.to_json())
-
-
-# c.vectorizer.to_csv("out.csv")
+c.print_table()
 
 
 
-# c.groups = c.algorithm.run(c.vectorizer.matrix)
+# collection = EmailCollection()
+# collection.add_from_directory(unsec.LARGE_DATASET_PATH)
+# collection.keep_lang("fr")
 
-# c.compute_clusters()
-
-# for e in c.clusters[1]:
-#     print(e.filename)
-
-
-
-
-
-# print(collection.count())
 
 # engine   = Clusterizer(collection)
+# engine.target = "body"
+# engine.set_vectorizer(TfidfVectorizer())
+# engine.run_cleaner()
+# engine.run_vectorizer()
 
-# engine.compute(algorithm="kmeans", n_clusters=8)
-# clusters = engine.get_clusters()
+
+# engine.set_algorithm(HierarchicalAlgo(n_clusters = 4, affinity = "cosine"))
+
+# engine.run_algorithm()
+# engine.compute_clusters()
+
+
+# engine.print_table()

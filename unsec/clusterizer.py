@@ -1,5 +1,5 @@
-from unsec import Algo
-from unsec import Vectorizer
+from unsec.algorithm import Algo
+from unsec.vectorizer import Vectorizer
 from unsec import Cleaner
 import logging
 import json
@@ -59,6 +59,8 @@ class Clusterizer(object):
 
         self.log.info("Start clustering on collection {} emails".format(self.email_collection.count()))
 
+
+
         self.run_cleaner()
         self.run_vectorizer()
         self.run_algorithm()
@@ -115,6 +117,12 @@ class Clusterizer(object):
         data["clusters"] = clusters
 
         return json.dumps(data)
+
+
+    def print_table(self):
+        for index in range(len(self.clusters)):
+            for email in self.clusters[index]:
+                print(email.filename, index, sep="\t")
 
 
 

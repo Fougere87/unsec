@@ -8,32 +8,36 @@ from mpl_toolkits.mplot3d import Axes3D
 from sklearn import  decomposition
 from sklearn.metrics import pairwise
 from sklearn import mixture
-from unsec import Email, EmailCollection, Cleaner, TfidfVectorizer, LogicVectorizer
-from unsec import Clusterizer, Cluster, SKMeanAlgo, HierarchicalAlgo
+from unsec import Email, EmailCollection, Cleaner
+from unsec.vectorizer import TfidfVectorizer, LogicVectorizer
+from unsec.algorithm import  SKMeanAlgo, HierarchicalAlgo
+from unsec import Clusterizer
 import unsec
 # import logging
 # logging.basicConfig(level=logging.INFO)
 
 
 collection = EmailCollection()
-collection.add_from_directory(unsec.LARGE_DATASET_PATH)
+collection.add_from_directory(unsec.MEDIUM_DATASET_PATH)
 collection.keep_lang("fr")
 
 
 engine   = Clusterizer(collection)
 engine.target = "body"
 engine.set_vectorizer(TfidfVectorizer())
-engine.run_cleaner()
-engine.run_vectorizer()
+# engine.run_cleaner()
+# engine.run_vectorizer()
 
 
 engine.set_algorithm(HierarchicalAlgo(n_clusters = 4, affinity = "cosine"))
 
-engine.run_algorithm()
-engine.compute_clusters()
+engine.compute()
+
+# engine.run_algorithm()
+# engine.compute_clusters()
 
 
-print(engine.to_json())
+engine.print_table()
 
 # print(engine.algorithm.k_means.inertia_)
 
