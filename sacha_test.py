@@ -12,19 +12,24 @@ print("test")
 
 collection = EmailCollection()
 
-collection.add_from_directory(unsec.LARGE_DATASET_PATH)
+collection.add_from_directory("data/bioinfo_2014-01")
+collection.keep_lang("fr")
 
 
-c = Clusterizer(collection)
-c.set_vectorizer(TfidfVectorizer())
-c.set_algo(HierarchicalAlgo(n_clusters=2, affinity = "cosine"))
-
-c.compute_cleaner()
-c.compute_vectors()
+for e in collection:
+    print(e)
 
 
+# c = Clusterizer(collection)
+# c.set_vectorizer(TfidfVectorizer())
+# c.set_algo(HierarchicalAlgo(n_clusters=2, affinity = "cosine"))
 
-c.vectorizer.to_csv("out.csv")
+# c.compute_cleaner()
+# c.compute_vectors()
+
+
+
+# c.vectorizer.to_csv("out.csv")
 
 
 

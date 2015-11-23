@@ -92,6 +92,15 @@ class EmailCollection(object):
         """
         return Email(self.paths[index])
 
+
+    def keep_lang(self, lang="fr"):
+        paths_to_keeps = []
+        for email in self.get_emails():
+            if email.get_lang() == lang:
+                paths_to_keeps.append(email.filename)
+
+        self.paths = paths_to_keeps
+
     def __getitem__(self, index):
         return self.at(index)
 
