@@ -6,16 +6,19 @@ import matplotlib as mpl
 from mpl_toolkits.mplot3d import Axes3D
 from unsec import Email, EmailCollection, Cleaner, TfidfVectorizer, LogicVectorizer
 from unsec import Clusterizer, Cluster, SmallEmailCollection
-
-
+import unsec
 print("test")
 
 
-c = SmallEmailCollection()
+collection = EmailCollection()
+
+collection.add_from_directory(unsec.MEDIUM_DATASET_PATH)
 
 
+for i in collection:
+    print(i.get_subject())
 
-
+print(collection.count())
 
 
 

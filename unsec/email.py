@@ -8,22 +8,33 @@ __license__     = "GPL3"
 __email__       = "sacha@labsquare.org"
 
 import re
-from email import message_from_binary_file
+from email import message_from_binary_file, message_from_bytes
 from email.header import decode_header, make_header
 from langdetect import detect
 
 
 
 class Email(object):
-    def __init__(self, filename):
+    def __init__(self, filename = None):
         """
         Create an Email object from filename
         @param string filename: raw email filename
         """
+        if filename is not None:
+            self.from_file(filename)
+
+
+
+    def from_file(self,filename):
         with open(filename, "rb") as file:
             self.filename  = filename
             self.message   = message_from_binary_file(file)
             self.charset   = self.message.get_charsets()[0]
+
+    def from_bytes(self, bytes):
+        self.message =  message_from_bytes(bytes)
+        self.charset =  self.message.get_charsets()[0]
+
 
     def get_subject(self):
         """

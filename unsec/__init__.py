@@ -1,6 +1,9 @@
 import os
-STOP_LIST_PATH = os.path.dirname(__file__)+"/stop_list/"
-DATASET_PATH   = os.path.dirname(__file__)+"/dataset/"
+STOP_LIST_PATH       = os.path.dirname(__file__)+"/stop_list/"
+DATASET_PATH         = os.path.dirname(__file__)+"/dataset/"
+LARGE_DATASET_PATH   = os.path.dirname(__file__)+"/dataset/large"
+MEDIUM_DATASET_PATH   = os.path.dirname(__file__)+"/dataset/medium"
+SMALL_DATASET_PATH   = os.path.dirname(__file__)+"/dataset/small"
 
 
 from unsec.email import Email
