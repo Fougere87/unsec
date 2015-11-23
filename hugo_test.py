@@ -9,25 +9,27 @@ from sklearn import  decomposition
 from sklearn.metrics import pairwise
 from sklearn import mixture
 from unsec import Email, EmailCollection, Cleaner, TfidfVectorizer, LogicVectorizer
-from unsec import Clusterizer, Cluster, SKMeanAlgo, Hierarch
+from unsec import Clusterizer, Cluster, SKMeanAlgo, HierarchicalAlgo
 
 
 
 collection = EmailCollection()
 collection.add_from_directory("data/bioinfo_2014-01/")
-
+# collection.keep_lang("fr")
 
 
 engine   = Clusterizer(collection)
+engine.target = "body"
 engine.set_vectorizer(TfidfVectorizer())
-engine.compute_cleaner()
-engine.compute_vectors()
+engine.run_cleaner()
+engine.run_vectorizer()
 
 distances = pairwise.pairwise_distances(engine.vectorizer.matrix, metric ='cosine')
 print(distances[:100])
 
-engine.set_algo(Hierarch(n_clusters = 15, affinity = "cosine"))
-engine.groups = engine.algorithm.run(engine.vectorizer.matrix)
+engine.set_algorithm(HierarchicalAlgo(n_clusters = 15, affinity = "cosine"))
+
+engine.run_algorithm()
 engine.compute_clusters()
 for c in engine.clusters :
     print("CLUSTER====================")
