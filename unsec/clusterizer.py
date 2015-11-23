@@ -34,7 +34,7 @@ class Clusterizer(object):
     def compute(self, verbose = True):
         self.compute_cleaner()
         self.compute_vectors()
-        self.groups= self.algorithm.run(self.vectorizer.matrix)
+        self.groups = self.algorithm.run(self.vectorizer.matrix)
         self.compute_clusters()
 
 
