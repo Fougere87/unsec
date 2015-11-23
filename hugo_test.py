@@ -15,7 +15,7 @@ from unsec import Clusterizer, Cluster, SKMeanAlgo, HierarchicalAlgo
 
 collection = EmailCollection()
 collection.add_from_directory("data/bioinfo_2014-01/")
-# collection.keep_lang("fr")
+collection.keep_lang("en")
 
 
 engine   = Clusterizer(collection)
@@ -27,7 +27,7 @@ engine.run_vectorizer()
 distances = pairwise.pairwise_distances(engine.vectorizer.matrix, metric ='cosine')
 print(distances[:100])
 
-engine.set_algorithm(HierarchicalAlgo(n_clusters = 15, affinity = "cosine"))
+engine.set_algorithm(HierarchicalAlgo(n_clusters = 4, affinity = "cosine"))
 
 engine.run_algorithm()
 engine.compute_clusters()
