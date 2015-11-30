@@ -12,10 +12,18 @@ from unsec import Clusterizer
 logging.basicConfig(level=logging.INFO)
 
 
+print("salut")
+
+
+
 collection = EmailCollection()
 collection.add_from_directory(unsec.MEDIUM_DATASET_PATH)
+
+print(collection.count())
+
 collection.keep_lang("fr")
 
+print(collection.count())
 
 c = Clusterizer(collection)
 c.set_vectorizer(TfidfVectorizer())
@@ -23,8 +31,7 @@ c.set_algorithm(KMeanAlgo(n_clusters=4))
 
 c.compute()
 
-
-c.print_table()
+print(c.to_json())
 
 
 

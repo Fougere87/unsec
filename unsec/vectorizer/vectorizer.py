@@ -2,8 +2,8 @@ import csv
 
 class Vectorizer(object):
     def __init__(self):
-        self.matrix     = None
-        self.raws       = None
+        self.matrix     = None # list of list
+        self.raws       = [] # list of str
 
 
 

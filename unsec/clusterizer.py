@@ -1,24 +1,33 @@
 from unsec.algorithm import Algo
 from unsec.vectorizer import Vectorizer
 from unsec import Cleaner
+from unsec import EmailCollection, Email
 import logging
 import json
 import datetime
+
 class Clusterizer(object):
 
-    def __init__(self, email_collection, target = "body"):
+    def __init__(self, email_collection: EmailCollection, target = "body", vectorizer = None, algorithm = None):
         """
         Create a clusterizer object
         @arg string email_collection    this should be an EmailCollection
         """
+        # Input Source email Collection to clusterize
         self.email_collection = email_collection
-        # Contains collection of email collections ex [[a,b], [a,b,c]]
+        # List of text to clusterize
+        self.raws       = []
+        # Output Clusterized collections of email
         self.clusters   = []
-        self.algorithm  = None
-        self.vectorizer = None
-        # Contains list of groups for each email ex:[1,2,1,1,2]
-        self.groups     = []
+        # Current clustering algorithm
+        self.algorithm  = algorithm
+        # Current vectorizer
+        self.vectorizer = vectorizer
+        # Current Cleaner
         self.cleaner    = Cleaner()
+        # Clusters ID
+        self.groups     = []
+        # Email subject or Email body as the target of analysis
         self.target     = target
         self.log        = logging.getLogger(__name__)
 
@@ -33,13 +42,14 @@ class Clusterizer(object):
     def run_vectorizer(self):
         """ start vectorizer """
         self.log.info(str(self.vectorizer.__class__.__name__)+" running ...")
+        # fill te vectorizer input
+        self.vectorizer.raws = self.raws
         self.vectorizer.vectorize()
-
 
 
     def run_cleaner(self):
         """ clean collection and fill vectorizer """
-        raws = []
+        self.raws.clear()
         self.log.info("Cleaner running (target: "+self.target+")")
         for email in self.email_collection:
             source = str()
@@ -47,8 +57,8 @@ class Clusterizer(object):
                 source = email.get_subject()
             if self.target == "body":
                 source = email.get_body()
-            raws.append(self.cleaner.clean(source))
-        self.vectorizer.raws = raws
+            self.raws.append(self.cleaner.clean(source))
+
 
     def run_algorithm(self):
         self.log.info(str(self.algorithm.__class__.__name__)+" running ...")
@@ -58,9 +68,6 @@ class Clusterizer(object):
     def compute(self):
 
         self.log.info("Start clustering on collection {} emails".format(self.email_collection.count()))
-
-
-
         self.run_cleaner()
         self.run_vectorizer()
         self.run_algorithm()
@@ -68,7 +75,7 @@ class Clusterizer(object):
 
         self.log.info("Results : ")
         for index in range(len(self.clusters)):
-            self.log.info("\t[{}] {} email(s)".format(index, len(self.clusters[index])))
+            self.log.info("\t[{}] {} email(s)".format(index, self.clusters[index].count()))
 
 
 
@@ -76,14 +83,12 @@ class Clusterizer(object):
         '''To recover the docs by cluster'''
 
         self.log.info("Compute Email clustering ...")
+        n_cluster = (max(self.groups))
+        self.clusters = [EmailCollection() for i in range(n_cluster+1)]
 
-        result = [[] for x in range(len(set(self.groups)))]
-        n_lab = 0
-        for lab in self.groups :
-            result[lab].append(self.email_collection[n_lab])
-            n_lab+=1
-        self.clusters = result
-
+        for index in range(len(self.groups)):
+            gid = self.groups[index]
+            self.clusters[gid].add_email(self.email_collection[index])
 
 
     def to_json(self):
@@ -101,7 +106,7 @@ class Clusterizer(object):
         clusters = []
         for index in range(len(self.clusters)):
             cluster  = {}
-            cluster["count"] = len(self.clusters[index])
+            cluster["count"] = self.clusters[index].count()
             cluster["files"] = []
             for email in self.clusters[index]:
                 e = {}

@@ -24,6 +24,7 @@ class Email(object):
 
 
 
+
     def from_file(self,filename):
         with open(filename, "rb") as file:
             self.filename  = filename
