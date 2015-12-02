@@ -1,6 +1,5 @@
 from math import *
 from decimal import Decimal
-from random import random
 
 def euclidian_distance(a,b ):
     ''' a and b are vector '''
@@ -44,6 +43,18 @@ def barycenter(vectors) :
     for v in vectors :
         out=[sum(x) for x in zip(out, v)]
     return [i/len(vectors) for i in out]
+#===============================================================
+def variance(vectors):
+    center = barycenter(vectors)
+    var = 0
+    for vector in vectors:
+        var += euclidian_distance(vector, center)
+    return var
+
+
+
+
+
 #===============================================================
 def random_vector(vectors):
 

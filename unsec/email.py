@@ -3,7 +3,7 @@
 """Email.py: Email parser from file """
 
 __author__      = "Sacha Schutz - Hugo Mayer"
-__copyright__   = "Copyright 2009, labsquare"
+__copyright__   = "Copyright 2015, labsquare"
 __license__     = "GPL3"
 __email__       = "sacha@labsquare.org"
 
@@ -11,17 +11,21 @@ import re
 from email import message_from_binary_file, message_from_bytes
 from email.header import decode_header, make_header
 from langdetect import detect
-
-
+from unsec import tools
+import os
 
 class Email(object):
-    def __init__(self, filename = None):
+    def __init__(self, filename = None, category = None):
         """
         Create an Email object from filename
         @param string filename: raw email filename
         """
         if filename is not None:
             self.from_file(filename)
+
+        self.category = category
+
+
 
 
 
@@ -65,6 +69,16 @@ class Email(object):
         """
         lang   = detect(self.get_body())
         return lang
+
+
+    def get_name(self):
+        return os.path.basename(self.filename)
+
+
+
+
+
+
 
     def __str__(self):
         return self.get_subject()

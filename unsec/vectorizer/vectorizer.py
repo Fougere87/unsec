@@ -1,9 +1,9 @@
 import csv
-
+from unsec import tools
 class Vectorizer(object):
     def __init__(self):
-        self.matrix     = None
-        self.raws       = None
+        self.matrix     = None # list of list OUTPUT
+        self.raws       = [] # list of str INPUT
 
 
 
@@ -29,3 +29,5 @@ class Vectorizer(object):
             writer.writerow(self.unique_terms())
             for vector in self.matrix :
                 writer.writerow(vector)
+
+

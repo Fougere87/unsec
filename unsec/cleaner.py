@@ -10,6 +10,7 @@ __email__       = "sacha@labsquare.org"
 import unsec
 import re
 from nltk.stem.snowball import FrenchStemmer, EnglishStemmer
+import logging
 
 class Cleaner(object):
     def __init__(self, lang = "fr"):
@@ -150,6 +151,7 @@ class Cleaner(object):
         raw = self.remove_regexp_rules(raw)
 
         # #REMOVE 2-mers
+
         # raw = re.sub(r"\s\w{1,2}\s", ' ', raw)
 
         return raw

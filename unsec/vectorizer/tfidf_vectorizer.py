@@ -1,5 +1,5 @@
 
-from unsec import Vectorizer
+from unsec.vectorizer import Vectorizer
 from math import log
 
 class TfidfVectorizer(Vectorizer):

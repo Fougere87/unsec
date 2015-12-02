@@ -8,33 +8,36 @@ from mpl_toolkits.mplot3d import Axes3D
 from sklearn import  decomposition
 from sklearn.metrics import pairwise
 from sklearn import mixture
-from unsec import Email, EmailCollection, Cleaner, TfidfVectorizer, LogicVectorizer
-from unsec import Clusterizer, Cluster, SKMeanAlgo, HierarchicalAlgo
-
+from unsec import Email, EmailCollection, Cleaner
+from unsec.vectorizer import TfidfVectorizer, LogicVectorizer
+from unsec.algorithm import  SKMeanAlgo, HierarchicalAlgo
+from unsec import Clusterizer
+import unsec
+# import logging
+# logging.basicConfig(level=logging.INFO)
 
 
 collection = EmailCollection()
-collection.add_from_directory("data/bioinfo_2014-01/")
-collection.keep_lang("en")
+collection.add_from_directory(unsec.MEDIUM_DATASET_PATH)
+collection.keep_lang("fr")
 
 
 engine   = Clusterizer(collection)
 engine.target = "body"
 engine.set_vectorizer(TfidfVectorizer())
-engine.run_cleaner()
-engine.run_vectorizer()
+# engine.run_cleaner()
+# engine.run_vectorizer()
 
-distances = pairwise.pairwise_distances(engine.vectorizer.matrix, metric ='cosine')
-print(distances[:100])
 
 engine.set_algorithm(HierarchicalAlgo(n_clusters = 4, affinity = "cosine"))
 
-engine.run_algorithm()
-engine.compute_clusters()
-for c in engine.clusters :
-    print("CLUSTER====================")
-    for e in c :
-        print(e)
+engine.compute()
+
+# engine.run_algorithm()
+# engine.compute_clusters()
+
+
+engine.print_table()
 
 # print(engine.algorithm.k_means.inertia_)
 

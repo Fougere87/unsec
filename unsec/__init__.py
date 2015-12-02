@@ -8,17 +8,17 @@ SMALL_DATASET_PATH   = os.path.dirname(__file__)+"/dataset/small"
 
 from unsec.email import Email
 from unsec.email_collection import EmailCollection
+from unsec.test_email_collection import TestEmailCollection
+
 from unsec.cleaner import Cleaner
-from unsec.vectorizer import Vectorizer
-from unsec.tfidf_vectorizer import TfidfVectorizer
-from unsec.logic_vectorizer import LogicVectorizer
-from unsec.cluster import Cluster
-from unsec.algo import Algo
-from unsec.skmean_algo import SKMeanAlgo
-from unsec.hierarchical_algo import HierarchicalAlgo
 from unsec.clusterizer import Clusterizer
+from unsec.assessor import Assessor
+
+# from unsec.algo import Algo
+# from unsec.skmean_algo import SKMeanAlgo
+# from unsec.hierarchical_algo import HierarchicalAlgo
 from unsec.tools import *
-from unsec.small_email_collection import SmallEmailCollection
+# from unsec.small_email_collection import SmallEmailCollection
 
 
 
