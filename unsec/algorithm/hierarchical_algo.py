@@ -3,7 +3,7 @@ from sklearn import cluster
 
 
 class HierarchicalAlgo(Algo) :
-    def __init__(self, n_clusters = 3, affinity = "euclidian"):
+    def __init__(self, n_clusters = 3, affinity = "cosine"):
         super(HierarchicalAlgo, self).__init__()
 
         self.n_clusters = n_clusters

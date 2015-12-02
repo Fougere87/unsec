@@ -3,35 +3,58 @@ import os
 import unsec
 import logging
 
-from unsec.algorithm import HierarchicalAlgo, KMeanAlgo
+from unsec.algorithm import HierarchicalAlgo, KMeanAlgo, SKMeanAlgo
 from unsec.vectorizer import TfidfVectorizer
-from unsec import EmailCollection
-from unsec import Clusterizer
+from unsec import EmailCollection, TestEmailCollection
+from unsec import Clusterizer, Assessor
+from unsec import tools
 
 
 logging.basicConfig(level=logging.INFO)
 
 
-print("salut")
+
+collection = TestEmailCollection()
 
 
 
-collection = EmailCollection()
-collection.add_from_directory(unsec.MEDIUM_DATASET_PATH)
 
-print(collection.count())
 
-collection.keep_lang("fr")
 
-print(collection.count())
+engine = Clusterizer(collection,target="subject",algorithm=HierarchicalAlgo(n_clusters=3), vectorizer = TfidfVectorizer())
 
-c = Clusterizer(collection)
-c.set_vectorizer(TfidfVectorizer())
-c.set_algorithm(KMeanAlgo(n_clusters=4))
+engine.compute()
 
-c.compute()
 
-print(c.to_json())
+
+
+
+
+
+# tester = Assessor(engine)
+
+# tester.compute()
+
+
+
+
+# print(tester.categories)
+
+
+
+# #collection.keep_lang("fr")
+
+
+# c = Clusterizer(collection)
+# c.set_vectorizer(TfidfVectorizer())
+# c.set_algorithm(HierarchicalAlgo(n_clusters=2))
+
+# c.compute()
+
+# c.print_table()
+
+
+# c.print_table()
 
 
 

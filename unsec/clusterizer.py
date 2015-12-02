@@ -46,6 +46,10 @@ class Clusterizer(object):
         self.vectorizer.raws = self.raws
         self.vectorizer.vectorize()
 
+        # meta programmation : associate vector to mails
+        for index in range(len(self.vectorizer.matrix)):
+            self.email_collection[index].vector = self.vectorizer.matrix[index]
+
 
     def run_cleaner(self):
         """ clean collection and fill vectorizer """
@@ -57,12 +61,17 @@ class Clusterizer(object):
                 source = email.get_subject()
             if self.target == "body":
                 source = email.get_body()
-            self.raws.append(self.cleaner.clean(source))
+
+            clean = self.cleaner.clean(source)
+            self.raws.append(clean)
+            email.clean = clean   # Meta programmation ! Create new variable
+
 
 
     def run_algorithm(self):
         self.log.info(str(self.algorithm.__class__.__name__)+" running ...")
         self.groups = self.algorithm.run(self.vectorizer.matrix)
+        # self.groups = self.order_groups(self.groups)
 
 
     def compute(self):
@@ -75,7 +84,20 @@ class Clusterizer(object):
 
         self.log.info("Results : ")
         for index in range(len(self.clusters)):
-            self.log.info("\t[{}] {} email(s)".format(index, self.clusters[index].count()))
+            self.log.info("\t[{}] {} email(s)".format(self.clusters[index].name,self.clusters[index].count() ))
+
+
+
+    # def order_groups(self, groups):
+    #     order = {}
+    #     for i in set(sorted(self.groups)):
+    #         order[i] = self.groups.count(i)
+
+    #     a = [i[0] for i in sorted(order.items(), key=lambda x: x[1])]
+    #     return [a[i] for i in self.groups]
+
+
+
 
 
 
@@ -84,7 +106,7 @@ class Clusterizer(object):
 
         self.log.info("Compute Email clustering ...")
         n_cluster = (max(self.groups))
-        self.clusters = [EmailCollection() for i in range(n_cluster+1)]
+        self.clusters = [EmailCollection("cluster_"+str(i)) for i in range(n_cluster+1)]
 
         for index in range(len(self.groups)):
             gid = self.groups[index]
@@ -127,7 +149,7 @@ class Clusterizer(object):
     def print_table(self):
         for index in range(len(self.clusters)):
             for email in self.clusters[index]:
-                print(email.filename, index, sep="\t")
+                print(email.get_name(), self.clusters[index].name, sep="\t")
 
 
 

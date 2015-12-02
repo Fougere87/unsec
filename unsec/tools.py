@@ -44,6 +44,18 @@ def barycenter(vectors) :
         out=[sum(x) for x in zip(out, v)]
     return [i/len(vectors) for i in out]
 #===============================================================
+def variance(vectors):
+    center = barycenter(vectors)
+    var = 0
+    for vector in vectors:
+        var += euclidian_distance(vector, center)
+    return var
+
+
+
+
+
+#===============================================================
 def random_vector(vectors):
 
     if len(vectors) == 0:

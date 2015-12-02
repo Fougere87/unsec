@@ -9,13 +9,14 @@ __email__       = "sacha@labsquare.org"
 
 import re
 import glob
-from unsec import Email
+from unsec import Email, tools
 import logging
 
 class EmailCollection(object):
-    def __init__(self):
+    def __init__(self, name = None):
         self.emails  = []
         self.log     = logging.getLogger(__name__)
+        self.name    = name
 
 
     def get_emails(self):
@@ -78,12 +79,23 @@ class EmailCollection(object):
             yield email.get_sender()
 
 
+
+    def select(self, category):
+        return [email for email in self.get_emails() if email.category == category.lower()]
+
+
+
+
     def count(self):
         """
         return size of collection
         @return int count
         """
         return len(self.emails)
+
+    def category_count(self, category):
+        return len(select(category))
+
 
     def at(self, index):
         """
@@ -104,6 +116,30 @@ class EmailCollection(object):
 
 
         self.emails = new_list
+
+
+    def get_categories(self):
+        categories = {}
+        for email in self.get_emails():
+            if email.category not in categories:
+                categories[email.category] = 1
+            else:
+                categories[email.category]+=1
+
+        return categories
+
+
+
+    def get_vectors(self):
+        vectors = []
+        # WORKS ONLY IF CLUSTERIZER HAS BEEN PROCESS
+        for email in self.get_emails():
+            vectors.append(email.vector)
+
+        return vectors
+
+
+
 
     def __getitem__(self, index):
         return self.at(index)
