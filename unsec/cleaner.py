@@ -2,7 +2,7 @@
 
 """cleaner.py: Cleaner aims to clean string according several. This is a natural language processing"""
 
-__author__      = "Sacha Schutz - Hugo Mayer"
+__author__      = "Sacha Schutz - Hugo Mayere"
 __copyright__   = "Copyright 2009, labsquare"
 __license__     = "GPL3"
 __email__       = "sacha@labsquare.org"
