@@ -1,11 +1,11 @@
 from unsec import EmailCollection, Email
-from unsec import LARGE_DATASET_PATH
+from unsec import SMALL_DATASET_PATH
 import glob
 import re
 import os
 
 class TestEmailCollection(EmailCollection):
-    def __init__(self, label = None, dataset = LARGE_DATASET_PATH ):
+    def __init__(self, label = None, dataset = SMALL_DATASET_PATH ):
         super(TestEmailCollection, self).__init__(label)
         self.dataset = dataset
 
