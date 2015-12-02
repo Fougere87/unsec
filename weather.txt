@@ -1,0 +1,14 @@
+summer,chaud,page,boisson
+summer,chaud,piscine,serviette
+printemps,fleur,tiede
+printemps,fleur,tiede,avril,poisson
+printemps,tiede,boisson,mai,arbre
+automne,froid,mort,guerre
+automne,froid,arbre,mort,feuille,septembre
+automne,froid,aout,mort
+automne,arbre,feuille,mort
+hiver,froid,neige,noel
+hiver,froid,neige,ski,montagne
+hiver,froid,neige,chataigne,janvier
+hiver,janvier,ski,montagne,sport
+summer,chaud,sport,short,boisson

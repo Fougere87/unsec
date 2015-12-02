@@ -4,7 +4,7 @@ import unsec
 import logging
 
 from unsec.algorithm import HierarchicalAlgo, KMeanAlgo, SKMeanAlgo
-from unsec.vectorizer import TfidfVectorizer
+from unsec.vectorizer import TfidfVectorizer, LogicVectorizer
 from unsec import EmailCollection, TestEmailCollection
 from unsec import Clusterizer, Assessor
 from unsec import tools
@@ -19,13 +19,19 @@ collection = TestEmailCollection()
 
 
 
+# collection.keep_lang("fr")
 
 
-engine = Clusterizer(collection,target="subject",algorithm=HierarchicalAlgo(n_clusters=3), vectorizer = TfidfVectorizer())
-
+engine = Clusterizer(collection,target="subject",algorithm=HierarchicalAlgo(n_clusters=4), vectorizer = LogicVectorizer())
 engine.compute()
 
 
+# input("press to see")
+
+for coll in engine.clusters:
+    print("#======= CLUSTER =========")
+    for email in coll:
+        print(email.get_subject(), " ", email.clean)
 
 
 
