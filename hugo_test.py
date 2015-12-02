@@ -1,13 +1,17 @@
 #!/usr/bin/python3
 import os
-import glob
+import logging
+import unsec
 from sklearn import cluster
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+from sklearn import metrics
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn import  decomposition
 from sklearn.metrics import pairwise
 from sklearn import mixture
+import matplotlib.cm as cm
+import numpy as np
 from unsec import Email, EmailCollection, Cleaner
 from unsec.vectorizer import TfidfVectorizer, LogicVectorizer
 from unsec.algorithm import  SKMeanAlgo, HierarchicalAlgo
@@ -16,28 +20,59 @@ import unsec
 # import logging
 # logging.basicConfig(level=logging.INFO)
 
-
+logging.basicConfig(level=logging.INFO)
 collection = EmailCollection()
-collection.add_from_directory(unsec.MEDIUM_DATASET_PATH)
-collection.keep_lang("fr")
+collection.add_from_directory("data/bioinfo_2014-01/")
+# collection.keep_lang("fr")
 
 
 engine   = Clusterizer(collection)
 engine.target = "body"
 engine.set_vectorizer(TfidfVectorizer())
-# engine.run_cleaner()
-# engine.run_vectorizer()
-
-
-engine.set_algorithm(HierarchicalAlgo(n_clusters = 4, affinity = "cosine"))
+engine.set_algorithm(HierarchicalAlgo(n_clusters = 30))
 
 engine.compute()
 
-# engine.run_algorithm()
-# engine.compute_clusters()
+labels = engine.groups
+matrix = np.array(engine.vectorizer.matrix)
+silhouette_res =  metrics.silhouette_score(matrix, labels, metric='cosine')
+print("score silhouette",silhouette_res)
 
+sample_silhouette_values = metrics.silhouette_samples(matrix, labels)
+print(sample_silhouette_values)
+fig, (ax1, ax2) = plt.subplots(1, 2)
+n_clusters =30
+y_lower = 10
+for i in range(n_clusters):
+        # Aggregate the silhouette scores for samples belonging to
+        # cluster i, and sort them
+        ith_cluster_silhouette_values = \
+            sample_silhouette_values[labels == i]
 
-engine.print_table()
+        ith_cluster_silhouette_values.sort()
+
+        size_cluster_i = ith_cluster_silhouette_values.shape[0]
+        y_upper = y_lower + size_cluster_i
+
+        color = cm.spectral(float(i) / n_clusters)
+        ax1.fill_betweenx(np.arange(y_lower, y_upper),
+                          0, ith_cluster_silhouette_values,
+                          facecolor=color, edgecolor=color, alpha=0.7)
+
+        # Label the silhouette plots with their cluster numbers at the middle
+        ax1.text(-0.05, y_lower + 0.5 * size_cluster_i, str(i))
+
+        # Compute the new y_lower for next plot
+        y_lower = y_upper + 10  # 10 for the 0 samples
+
+ax1.set_title("The silhouette plot for the various clusters.")
+ax1.set_xlabel("The silhouette coefficient values")
+ax1.set_ylabel("Cluster label")
+
+plt.show()
+# for c in engine.clusters :
+#     for e in c :
+#         print(e.get_subject())
 
 # print(engine.algorithm.k_means.inertia_)
 
