@@ -61,6 +61,8 @@ class EmailCollection(object):
         for f in glob.glob(directory):
             self.add_file(f)
 
+
+
     def get_subjects(self):
         """
         return all subjects from collection's emails

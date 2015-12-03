@@ -35,11 +35,11 @@ engine.run_cleaner()
 engine.run_vectorizer()
 prev_silhouette_res = -0.2
 sd_treshold = 0.15
+
 n_clust = 20 #numbre of clustering to iterate
 clust_to_reclust = [[] for i in range(2,n_clust)]
 
 for n_clusters in range(18,n_clust) :
-
 
 #==============================Computing new n clusters
 
@@ -47,7 +47,7 @@ for n_clusters in range(18,n_clust) :
     engine.run_algorithm()
     engine.compute_clusters()
     matrix = np.array(engine.vectorizer.matrix)
-    labels = engine.groups
+    labels = engine.labels
 
 #=============================Calculating silhouette score of the clustering
 
@@ -106,25 +106,25 @@ for n_clusters in range(18,n_clust) :
     prev_silhouette_res = silhouette_res
 
 def unclusterded_clusters_detection(clusterizer) :
-    sample_silhouette_values = metrics.silhouette_samples(matrix, labels)
+    sample_silhouette_values = clusterizer.silhouette_samples()
     clusters = []
+    labels = clusterizer.labels
+    matrix = clusterizer.matrix
     for clust in range(max(labels)) :
         ith_cluster_silhouette_values = sample_silhouette_values[labels == clust]
         ith_cluster_silhouette_mean = np.mean(ith_cluster_silhouette_values)
         if ith_cluster_silhouette_mean < 0 :
-            engine.compute_clusters()
-            clust_to_reclust.append(engine.clusters[clust])
+            clust_to_reclust.append(clusterizer.clusters[clust])
     return clust_to_reclust
 
 
 
-
-def reclusterise(clusters_to_reclust, target = "body", vectorizer = TfidfVectorizer(), algorithm = HierarchicalAlgo(), n_clusters = 2 ,affinity ="cosine") :
+def reclusterise(clusters, target = "body", vectorizer = TfidfVectorizer(), algorithm = HierarchicalAlgo(), n_clusters = 2,affinity ="cosine") :
     new_clusts = []
-    for nc in clusters_to_reclust :
+    for nc in clusters :
         print(nc)
-        reclusterizer = Clusterizer(nc)
-        reclusterizer.set_algorithm(HierarchicalAlgo(n_clusters=n_clusters, affinity = affinity))
+        reclusterizer = Clusterizer(c, target = "body")
+        reclusterizer.set_algorithm(algorithm(n_clusters = 2, affinity = affinity))
         reclusterizer.set_vectorizer(vectorizer)
         reclusterizer.compute()
         new_clusts.append(reclusterizer.clusters)
@@ -132,18 +132,15 @@ def reclusterise(clusters_to_reclust, target = "body", vectorizer = TfidfVectori
 
 
 
-nclusts =[]
+sub_clusters =[]
 for nc in clust_to_reclust :
     if len(nc) :
-        nclusts.append(reclusterise(nc, n_clusters =15))
-print(nclusts)
-for nc in nclusts :
-    print(nc)
-    for c in nc :
-        for e in c :
-            print("============================================")
-            [print(sub) for sub in e.get_subjects()]
-
+        for c in nc :
+             sub_clusters.append(reclusterise(c, n_clusters = 15))
+for clust_ens in sub_clusters :
+    for clust in clust_ens :
+        print("============================================")
+        [print(e) for i in clust.get_subjects()]
 
 
 
@@ -156,7 +153,7 @@ for nc in nclusts :
 
 # for n in range(2,50) :
 #     engine.set_algo(SKMeanAlgo(n_clusters = n))
-#     engine.groups = engine.algorithm.run(engine.vectorizer.matrix)
+#     engine.labels = engine.algorithm.run(engine.vectorizer.matrix)
 #     engine.compute_clusters()
 #     print(engine.algorithm.k_means.inertia_)
 # #
