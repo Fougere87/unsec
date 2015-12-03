@@ -3,10 +3,11 @@ from unsec.vectorizer import Vectorizer
 from math import log
 
 class TfidfVectorizer(Vectorizer):
-    def __init__(self):
+
+    def __init__(self, idf_type = "classic"):
         # CALL PARENT CLASS
         super(TfidfVectorizer,self).__init__()
-
+        self.idf_type = idf_type
 # ====================================================================
 
     def term_freq(self,raw, space):
@@ -25,7 +26,12 @@ class TfidfVectorizer(Vectorizer):
                 if w in raw.split(" ") :
                     idf[n_word] += 1
             n_word += 1
-        idf = [log(d/w) for w in idf]
+        if self.idf_type == "squared" :
+            idf = [(log(d/w))**2 for w in idf]
+        if self.idf_type == "probabilistic" :
+            idf = [log((d-w)/w) for w in idf]
+        else :
+            idf = [log(d/w) for w in idf]
         return idf
 
 # ====================================================================
