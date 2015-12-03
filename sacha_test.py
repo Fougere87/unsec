@@ -22,15 +22,31 @@ from threading import Thread
 
 
 
-# collection = EmailCollection("data/bioinfo_2014-01/")
+collection = EmailCollection(unsec.SMALL_DATASET_PATH)
+
+
 
 # # collection.keep_lang("fr")
 
 
-# engine = Clusterizer(collection,
-#                             target         = "body",
-#                             algorithm      = HierarchicalAlgo(),
-#                             vectorizer     = TfidfVectorizer())
+engine = Clusterizer(collection,
+                            target         = "both",
+                            algorithm      = HierarchicalAlgo(),
+                            vectorizer     = TfidfVectorizer())
+
+
+engine.compute()
+
+
+for col in engine.clusters:
+    print("==cluster==")
+    for email in col:
+        print("---email---")
+        print("subject   :",email.get_subject())
+        print("body      :",email.get_body())
+
+        print("clean     :",email.clean)
+
 
 # engine.run_cleaner()
 # engine.run_vectorizer()

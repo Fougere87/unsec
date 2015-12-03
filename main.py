@@ -30,6 +30,9 @@ engine.vectorizer            = getattr(cfg,"VECTORIZER", LogicVectorizer())
 engine.algorithm             = getattr(cfg,"ALGORITHM",  HierarchicalAlgo())
 engine.algorithm.n_clusters  = getattr(cfg,"N_CLUSTERS", 3)
 
+engine.target                = getattr(cfg,"TARGET", "both")
+
+
 
 engine.compute()
 

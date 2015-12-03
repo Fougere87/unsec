@@ -20,20 +20,21 @@ class Clusterizer(object):
         # Input Source email Collection to clusterize
         self.email_collection = email_collection
         # List of text to clusterize
-        self.raws       = []
+        self.raws        = []
         # Output Clusterized collections of email
-        self.clusters   = []
+        self.clusters    = []
         # Current clustering algorithm
-        self.algorithm  = algorithm
+        self.algorithm   = algorithm
         # Current vectorizer
-        self.vectorizer = vectorizer
+        self.vectorizer  = vectorizer
         # Current Cleaner
-        self.cleaner    = Cleaner()
+        self.cleaner     = Cleaner()
         # Clusters ID
-        self.labels     = []
+        self.labels      = []
         # Email subject or Email body as the target of analysis
-        self.target     = target
-        self.log        = logging.getLogger(__name__)
+        self.target      = target
+        self.log         = logging.getLogger(__name__)
+        self.target_factor = 1
 
     def set_algorithm(self, algorithm: Algo) :
         """ set Algo to use """
@@ -61,12 +62,31 @@ class Clusterizer(object):
         self.log.info("Cleaner running (target: "+self.target+")")
         for email in self.email_collection:
             source = str()
-            if self.target == "subject":
-                source = email.get_subject()
-            if self.target == "body":
-                source = email.get_body()
 
-            clean = self.cleaner.clean(source)
+            if self.target == "both":
+                subject_clean = self.cleaner.clean(email.get_subject())
+                body_clean    = self.cleaner.clean(email.get_body())
+
+                len_subject   = len(subject_clean.split(" "))
+                len_body      = len(body_clean.split(" "))
+
+                # compute coef
+                coef = int(len_body / len_subject * self.target_factor)
+                add  = " ".join(subject_clean.split(" ") * coef)
+
+                clean = body_clean + " " + add
+
+
+
+
+
+            else:
+                if self.target == "subject":
+                    source = email.get_subject()
+                if self.target == "body":
+                    source = email.get_body()
+                clean = self.cleaner.clean(source)
+
             self.raws.append(clean)
             email.clean = clean   # Meta programmation ! Create new variable
 
@@ -119,12 +139,12 @@ class Clusterizer(object):
 
     def silhouette_score(self):
         array = np.array(self.vectorizer.matrix)
-        return metrics.silhouette_score(array, self.labels, metric='euclidean')
+        return metrics.silhouette_score(array, self.labels, metric='cosine')
 
 
     def silhouette_samples(self):
         array = np.array(self.vectorizer.matrix)
-        return metrics.silhouette_samples(array, self.labels, metric='euclidean')
+        return metrics.silhouette_samples(array, self.labels, metric='cosine')
 
 
 
