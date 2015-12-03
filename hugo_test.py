@@ -12,7 +12,7 @@ from sklearn.metrics import pairwise
 from sklearn import mixture
 import matplotlib.cm as cm
 import numpy as np
-from unsec import Email, EmailCollection, Cleaner
+from unsec import Email, EmailCollection, Cleaner, TestEmailCollection
 from unsec.vectorizer import TfidfVectorizer, LogicVectorizer
 from unsec.algorithm import  SKMeanAlgo, HierarchicalAlgo
 from unsec import Clusterizer
@@ -21,55 +21,117 @@ import unsec
 # logging.basicConfig(level=logging.INFO)
 
 logging.basicConfig(level=logging.INFO)
+# collection = TestEmailCollection(dataset = unsec.LARGE_DATASET_PATH)
 collection = EmailCollection()
-collection.add_from_directory("data/bioinfo_2014-01/")
+collection.add_from_files("data/bioinfo_2014-01/*")
 # collection.keep_lang("fr")
 
 
 engine   = Clusterizer(collection)
 engine.target = "body"
 engine.set_vectorizer(TfidfVectorizer())
-engine.set_algorithm(HierarchicalAlgo(n_clusters = 30))
+engine.set_algorithm(HierarchicalAlgo(n_clusters = 2, affinity ="cosine"))
+engine.run_cleaner()
+engine.run_vectorizer()
+prev_silhouette_res = -0.2
+sd_treshold = 0.15
+n_clust = 15 #numbre of clustering to iterate
+clust_to_reclust = [[] for i in range(2,n_clust)]
 
-engine.compute()
+for n_clusters in range(2,n_clust) :
 
-labels = engine.groups
-matrix = np.array(engine.vectorizer.matrix)
-silhouette_res =  metrics.silhouette_score(matrix, labels, metric='cosine')
-print("score silhouette",silhouette_res)
 
-sample_silhouette_values = metrics.silhouette_samples(matrix, labels)
-print(sample_silhouette_values)
-fig, (ax1, ax2) = plt.subplots(1, 2)
-n_clusters =30
-y_lower = 10
-for i in range(n_clusters):
-        # Aggregate the silhouette scores for samples belonging to
-        # cluster i, and sort them
-        ith_cluster_silhouette_values = \
-            sample_silhouette_values[labels == i]
+#==============================Computing new n clusters
 
-        ith_cluster_silhouette_values.sort()
+    engine.set_algorithm(HierarchicalAlgo(n_clusters = n_clusters, affinity ="cosine"))
+    engine.run_algorithm()
+    engine.compute_clusters()
+    matrix = np.array(engine.vectorizer.matrix)
+    labels = engine.groups
 
-        size_cluster_i = ith_cluster_silhouette_values.shape[0]
-        y_upper = y_lower + size_cluster_i
+#=============================Calculating silhouette score of the clustering
 
-        color = cm.spectral(float(i) / n_clusters)
-        ax1.fill_betweenx(np.arange(y_lower, y_upper),
-                          0, ith_cluster_silhouette_values,
-                          facecolor=color, edgecolor=color, alpha=0.7)
+    silhouette_res =  metrics.silhouette_score(matrix, labels, metric='cosine')
+    silhouette_diff = silhouette_res - prev_silhouette_res
+    print(n_clusters, silhouette_res, silhouette_diff, sep="\t")
 
-        # Label the silhouette plots with their cluster numbers at the middle
-        ax1.text(-0.05, y_lower + 0.5 * size_cluster_i, str(i))
+#=============================Decision
 
-        # Compute the new y_lower for next plot
-        y_lower = y_upper + 10  # 10 for the 0 samples
 
-ax1.set_title("The silhouette plot for the various clusters.")
-ax1.set_xlabel("The silhouette coefficient values")
-ax1.set_ylabel("Cluster label")
+    if silhouette_diff >= sd_treshold :
 
-plt.show()
+
+
+
+        #
+        # for coll in engine.clusters :
+        #     print("================================")
+        #     for e in coll :
+        #         print(e.get_subject())
+
+        sample_silhouette_values = metrics.silhouette_samples(matrix, labels)
+
+        for clust in range(n_clusters) :
+            ith_cluster_silhouette_values = sample_silhouette_values[labels == clust]
+            ith_cluster_silhouette_mean = np.mean(ith_cluster_silhouette_values)
+            if ith_cluster_silhouette_mean < 0 :
+                engine.compute_clusters()
+                clust_to_reclust[n_clusters].append(engine.clusters[clust])
+
+        # ax1 = plt
+        # y_lower = 10
+        # for i in range(n_clusters):
+        #     # Aggregate the silhouette scores for samples belonging to
+        #     # cluster i, and sort them
+        #     ith_cluster_silhouette_values = sample_silhouette_values[labels == i]
+        #     ith_cluster_silhouette_values.sort()
+        #     size_cluster_i = ith_cluster_silhouette_values.shape[0]
+        #     y_upper = y_lower + size_cluster_i
+        #     color = cm.spectral(float(i) / n_clusters)
+        #     ax1.fill_betweenx(np.arange(y_lower, y_upper), 0, ith_cluster_silhouette_values,
+        #                           facecolor=color, edgecolor=color, alpha=0.7)
+        #
+        #     # Label the silhouette plots with their cluster numbers at the middle
+        #     ax1.text(-0.05, y_lower + 0.5 * size_cluster_i, str(i))
+        #
+        #     # Compute the new y_lower for next plot
+        #     y_lower = y_upper + 10  # 10 for the 0 samples
+        #
+        # ax1.title("The silhouette plot for the various clusters.")
+        # ax1.xlabel("The silhouette coefficient values")
+        # ax1.ylabel("Cluster label")
+        # ax1.axvline(x=silhouette_res, color="red", linestyle="--")
+        #
+        # plt.show()
+    prev_silhouette_res = silhouette_res
+
+def unclusterded_clusters_detection(clusterizer,labels, matrix) :
+    sample_silhouette_values = metrics.silhouette_samples(matrix, labels)
+    clusters = []
+    for clust in range(max(labels)) :
+        ith_cluster_silhouette_values = sample_silhouette_values[labels == clust]
+        ith_cluster_silhouette_mean = np.mean(ith_cluster_silhouette_values)
+        if ith_cluster_silhouette_mean < 0 :
+            engine.compute_clusters()
+            clust_to_reclust.append(engine.clusters[clust])
+    return clust_to_reclust
+
+
+
+
+def reclusterise(clusters_to_reclust, target = "body", vectorizer = TfidfVectorizer(), algorithm = HierarchicalAlgo(), n_clusters = 2,affinity ="cosine") :
+    new_clusts = []
+    for nc in clusters_to_reclust :
+        print(c)
+        reclusterizer = Clusterizer(c, target = "body", vectorizer, algorithm(n_clusters, affinity) )
+        reclusterizer.compute()
+        new_clusts.append(reclusteriser.clusters)
+    return new_clusts
+
+for nc in clust_to_reclust :
+    if
+
+
 # for c in engine.clusters :
 #     for e in c :
 #         print(e.get_subject())
