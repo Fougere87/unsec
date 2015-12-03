@@ -2,22 +2,32 @@
 import os
 import glob
 import logging
-import webbrowser
+import argparse
 from sklearn import  decomposition
 from unsec import Email, EmailCollection, Clusterizer
 from unsec import Cleaner
 from unsec.vectorizer import LogicVectorizer
 from unsec.algorithm import HierarchicalAlgo
-import config as cfg
 
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--config',
+    help='the config filename witout extension. (By default \"config\")', default="config")
+args = parser.parse_args()
+
+
+cfg = __import__(args.config)
 
 
 if cfg.DEBUG is True:
     logging.basicConfig(level=logging.INFO)
     log = logging.getLogger(__name__)
+    log.info(args.config+" has been load as configuration")
 
 else:
     logging.disable(logging.NOTSET)
+
+
 
 
 collection = EmailCollection()
@@ -49,7 +59,7 @@ if getattr(cfg,"ENABLE_TEST", False):
         file.write("n_cluster\tintra\textra\tsilhouette\n")
 
         for n_cluster in cfg.TEST_CLUSTERING_RANGE:
-            print("FUCK ", n_cluster)
+            log.info("N_CLUSTER {}".format(n_cluster))
             log.info("Clustering with n_cluster : {}".format(n_cluster))
 
             engine.algorithm.n_clusters = n_cluster

@@ -182,6 +182,19 @@ class Clusterizer(object):
             cluster["count"] = self.clusters[index].count()
             cluster["files"] = []
             cluster["similarity"] = self.clusters[index].get_similarity()
+
+            # To refactor.. ugly
+            line = self.vectorizer.matrix[index]
+            m    = max(line)
+            a    = self.vectorizer.unique_terms()
+            out  = ""
+            for i in range(len(line)):
+                if line[i] == m:
+                    out+=a[i]+" "
+
+
+
+
             for email in self.clusters[index]:
                 e = {}
                 e["filename"] = email.filename
