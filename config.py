@@ -20,5 +20,6 @@ ALGORITHM  = HierarchicalAlgo()
 JSON_FILE  = "clustering.json"
 
 ENABLE_TEST = True
-TEST_CLUSTERING_RANGE = range(2,25)
-TEST_FOLDER = "test_results"
+
+TEST_CLUSTERING_RANGE = range(2,5)
+TEST_FOLDER = "test_results2"

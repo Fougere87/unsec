@@ -182,6 +182,9 @@ class Clusterizer(object):
             cluster["count"] = self.clusters[index].count()
             cluster["files"] = []
             cluster["similarity"] = self.clusters[index].get_similarity()
+
+
+
             for email in self.clusters[index]:
                 e = {}
                 e["filename"] = email.filename
