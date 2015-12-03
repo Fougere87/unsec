@@ -21,4 +21,4 @@ JSON_FILE  = "clustering.json"
 
 ENABLE_TEST = True
 TEST_CLUSTERING_RANGE = range(2,25)
-TEST_FOLDER = "TFCl_SK_Both_Fr"
+TEST_FOLDER = "test/TFCl_SK_Both_Fr"

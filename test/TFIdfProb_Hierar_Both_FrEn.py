@@ -21,4 +21,4 @@ JSON_FILE  = "clustering.json"
 
 ENABLE_TEST = True
 TEST_CLUSTERING_RANGE = range(2,25)
-TEST_FOLDER = "TFIdfProb_Hierar_Both_FrEn"
+TEST_FOLDER = "test/TFIdfProb_Hierar_Both_FrEn"
