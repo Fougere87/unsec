@@ -105,7 +105,7 @@ for n_clusters in range(18,n_clust) :
         # plt.show()
     prev_silhouette_res = silhouette_res
 
-def unclusterded_clusters_detection(clusterizer,labels, matrix) :
+def unclusterded_clusters_detection(clusterizer) :
     sample_silhouette_values = metrics.silhouette_samples(matrix, labels)
     clusters = []
     for clust in range(max(labels)) :
