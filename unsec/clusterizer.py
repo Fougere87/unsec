@@ -2,9 +2,11 @@ from unsec.algorithm import Algo
 from unsec.vectorizer import Vectorizer
 from unsec import Cleaner, tools
 from unsec import EmailCollection, Email
+from sklearn import metrics
 import logging
 import json
 import datetime
+import numpy as np
 
 class Clusterizer(object):
 
@@ -85,19 +87,25 @@ class Clusterizer(object):
         self.run_vectorizer()
         self.run_algorithm()
 
+        self.show_log()
+
+
+
+    def show_log(self):
+
+        s_scores = self.silhouette_samples()
         self.log.info("Results : ")
         for index in range(len(self.clusters)):
-            self.log.info("\t[{}] {} email(s)".format(self.clusters[index].name,self.clusters[index].count() ))
+            self.log.info("\t{} email(s)\t[{:5}]  [{:5}] ".format(
+                self.clusters[index].count(),
+                round(self.clusters[index].get_similarity(),3),
+                round(s_scores[index],2)))
 
 
 
-    # def order_groups(self, groups):
-    #     order = {}
-    #     for i in set(sorted(self.groups)):
-    #         order[i] = self.groups.count(i)
 
-    #     a = [i[0] for i in sorted(order.items(), key=lambda x: x[1])]
-    #     return [a[i] for i in self.groups]
+        self.log.info("total silhouette score: {:5}".format(round(self.silhouette_score(),3)))
+        self.log.info("total linkage score:    {:5}".format(round(self.cluster_linkage(),3)))
 
 
 
@@ -109,11 +117,14 @@ class Clusterizer(object):
         ref = centroids[0]
         return tools.avg_distance(centroids, ref)
 
-    def cluster_silhouette_score(self):
-        s = tools.silhouette_samples(self.vectorizer.matrix, self.labels)
-        return sum(s) / len(s)
+    def silhouette_score(self):
+        array = np.array(self.vectorizer.matrix)
+        return metrics.silhouette_score(array, self.labels, metric='euclidean')
 
 
+    def silhouette_samples(self):
+        array = np.array(self.vectorizer.matrix)
+        return metrics.silhouette_samples(array, self.labels, metric='euclidean')
 
 
 

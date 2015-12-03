@@ -18,39 +18,6 @@ from threading import Thread
 
 
 
-
-class Test(Thread):
-    def __init__(self, k = 3):
-        super(Test, self).__init__()
-        self.k = 3
-
-
-
-
-    def run(self):
-        for i in range(10000):
-            a = i ** i
-
-
-
-
-for i in range(10):
-    Test().start()
-
-
-
-
-
-
-
-
-# for i in range(10000):
-#     compute(i)
-
-
-
-
-
 # logging.basicConfig(level=logging.INFO)
 
 

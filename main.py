@@ -11,6 +11,7 @@ from unsec.algorithm import HierarchicalAlgo
 import config as cfg
 
 
+
 if cfg.DEBUG is True:
     logging.basicConfig(level=logging.INFO)
 else:
@@ -19,6 +20,7 @@ else:
 
 collection = EmailCollection()
 collection.add_from_directory(cfg.PATH)
+
 
 
 engine = Clusterizer(collection)
