@@ -1,6 +1,6 @@
 from unsec.algorithm import Algo
 from unsec.vectorizer import Vectorizer
-from unsec import Cleaner
+from unsec import Cleaner, tools
 from unsec import EmailCollection, Email
 import logging
 import json
@@ -8,7 +8,9 @@ import datetime
 
 class Clusterizer(object):
 
-    def __init__(self, email_collection: EmailCollection, target = "body", vectorizer = None, algorithm = None):
+    def __init__(self, email_collection: EmailCollection, target = "body",
+                 vectorizer = None,
+                 algorithm  = None):
         """
         Create a clusterizer object
         @arg string email_collection    this should be an EmailCollection
@@ -26,7 +28,7 @@ class Clusterizer(object):
         # Current Cleaner
         self.cleaner    = Cleaner()
         # Clusters ID
-        self.groups     = []
+        self.labels     = []
         # Email subject or Email body as the target of analysis
         self.target     = target
         self.log        = logging.getLogger(__name__)
@@ -70,8 +72,10 @@ class Clusterizer(object):
 
     def run_algorithm(self):
         self.log.info(str(self.algorithm.__class__.__name__)+" running ...")
-        self.groups = self.algorithm.run(self.vectorizer.matrix)
+        self.labels = self.algorithm.run(self.vectorizer.matrix)
         # self.groups = self.order_groups(self.groups)
+        self.compute_clusters()
+
 
 
     def compute(self):
@@ -80,7 +84,6 @@ class Clusterizer(object):
         self.run_cleaner()
         self.run_vectorizer()
         self.run_algorithm()
-        self.compute_clusters()
 
         self.log.info("Results : ")
         for index in range(len(self.clusters)):
@@ -98,6 +101,21 @@ class Clusterizer(object):
 
 
 
+    def cluster_linkage(self):
+        centroids = []
+        for coll in self.clusters:
+            centroids.append(coll.get_centroid())
+
+        ref = centroids[0]
+        return tools.avg_distance(centroids, ref)
+
+    def cluster_silhouette_score(self):
+        s = tools.silhouette_samples(self.vectorizer.matrix, self.labels)
+        return sum(s) / len(s)
+
+
+
+
 
 
 
@@ -105,11 +123,11 @@ class Clusterizer(object):
         '''To recover the docs by cluster'''
 
         self.log.info("Compute Email clustering ...")
-        n_cluster = (max(self.groups))
+        n_cluster = (max(self.labels))
         self.clusters = [EmailCollection("cluster_"+str(i)) for i in range(n_cluster+1)]
 
-        for index in range(len(self.groups)):
-            gid = self.groups[index]
+        for index in range(len(self.labels)):
+            gid = self.labels[index]
             self.clusters[gid].add_email(self.email_collection[index])
 
 
@@ -123,6 +141,8 @@ class Clusterizer(object):
         meta["cluster_count"]   = len(self.clusters)
         meta["vectorizer"]      = self.vectorizer.__class__.__name__
         meta["algorithm"]       = self.algorithm.__class__.__name__
+        meta["linkage"]         = self.cluster_linkage()
+
 
 
         clusters = []
@@ -130,6 +150,7 @@ class Clusterizer(object):
             cluster  = {}
             cluster["count"] = self.clusters[index].count()
             cluster["files"] = []
+            cluster["similarity"] = self.clusters[index].get_similarity()
             for email in self.clusters[index]:
                 e = {}
                 e["filename"] = email.filename
