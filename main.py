@@ -21,7 +21,8 @@ else:
 collection = EmailCollection()
 collection.add_from_directory(cfg.PATH)
 
-
+if hasattr(cfg,"LANG"):
+    collection.keep_lang("fr")
 
 engine = Clusterizer(collection)
 
