@@ -23,7 +23,7 @@ import unsec
 logging.basicConfig(level=logging.INFO)
 # collection = TestEmailCollection(dataset = unsec.LARGE_DATASET_PATH)
 collection = EmailCollection()
-collection.add_from_files("data/bioinfo_2014-01/*")
+collection.add_from_files("data/complete/bioinfo_2014-0*")
 # collection.keep_lang("fr")
 
 
@@ -35,10 +35,10 @@ engine.run_cleaner()
 engine.run_vectorizer()
 prev_silhouette_res = -0.2
 sd_treshold = 0.15
-n_clust = 15 #numbre of clustering to iterate
+n_clust = 25 #numbre of clustering to iterate
 clust_to_reclust = [[] for i in range(2,n_clust)]
 
-for n_clusters in range(2,n_clust) :
+for n_clusters in range(15,n_clust) :
 
 
 #==============================Computing new n clusters
@@ -47,7 +47,7 @@ for n_clusters in range(2,n_clust) :
     engine.run_algorithm()
     engine.compute_clusters()
     matrix = np.array(engine.vectorizer.matrix)
-    labels = engine.groups
+    labels = engine.labels
 
 #=============================Calculating silhouette score of the clustering
 
@@ -105,31 +105,40 @@ for n_clusters in range(2,n_clust) :
         # plt.show()
     prev_silhouette_res = silhouette_res
 
-def unclusterded_clusters_detection(clusterizer,labels, matrix) :
-    sample_silhouette_values = metrics.silhouette_samples(matrix, labels)
+def unclusterded_clusters_detection(clusterizer) :
+    sample_silhouette_values = clusterizer.silhouette_samples()
     clusters = []
+    labels = clusterizer.labels
+    matrix = clusterizer.matrix
     for clust in range(max(labels)) :
         ith_cluster_silhouette_values = sample_silhouette_values[labels == clust]
         ith_cluster_silhouette_mean = np.mean(ith_cluster_silhouette_values)
         if ith_cluster_silhouette_mean < 0 :
-            engine.compute_clusters()
-            clust_to_reclust.append(engine.clusters[clust])
+            clust_to_reclust.append(clusterizer.clusters[clust])
     return clust_to_reclust
 
 
 
 
-def reclusterise(clusters_to_reclust, target = "body", vectorizer = TfidfVectorizer(), algorithm = HierarchicalAlgo(), n_clusters = 2,affinity ="cosine") :
+def reclusterise(clusters, target = "body", vectorizer = TfidfVectorizer(), algorithm = HierarchicalAlgo(), n_clusters = 2,affinity ="cosine") :
     new_clusts = []
-    for nc in clusters_to_reclust :
-        print(c)
-        reclusterizer = Clusterizer(c, target = "body", vectorizer, algorithm(n_clusters, affinity) )
+    for nc in clusters :
+        print(nc)
+        reclusterizer = Clusterizer(c, target = "body")
+        reclusterizer.set_algorithm(algorithm(n_clusters = 2, affinity = affinity))
+        reclusterizer.set_vectorizer(vectorizer)
         reclusterizer.compute()
-        new_clusts.append(reclusteriser.clusters)
+        new_clusts.append(reclusterizer.clusters)
     return new_clusts
 
+sub_clusters =[]
 for nc in clust_to_reclust :
-    if
+    if len(nc) :
+        for c in nc :
+             sub_clusters.append(reclusterise(c, n_clusters = 15))
+for clust_ens in sub_clusters :
+    for clust in clust_ens :
+        [print(e) for i in clust.get_subjects()]
 
 
 # for c in engine.clusters :
@@ -141,7 +150,7 @@ for nc in clust_to_reclust :
 
 # for n in range(2,50) :
 #     engine.set_algo(SKMeanAlgo(n_clusters = n))
-#     engine.groups = engine.algorithm.run(engine.vectorizer.matrix)
+#     engine.labels = engine.algorithm.run(engine.vectorizer.matrix)
 #     engine.compute_clusters()
 #     print(engine.algorithm.k_means.inertia_)
 # #

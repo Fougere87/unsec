@@ -53,6 +53,14 @@ class EmailCollection(object):
         for f in glob.glob(directory+"/*"):
             self.add_file(f)
 
+    def add_from_files(self, directory):
+        """
+        add email from a directory
+        @param string path of files
+        """
+        for f in glob.glob(directory):
+            self.add_file(f)
+
 
     def get_subjects(self):
         """
@@ -160,5 +168,3 @@ class EmailCollection(object):
 
     def __str__(self):
         return "Collection of {} emails".format(self.count())
-
-
