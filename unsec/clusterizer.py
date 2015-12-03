@@ -198,6 +198,27 @@ class Clusterizer(object):
         return json.dumps(data)
 
 
+    def save_json(self, filename):
+        with open(filename,"w") as file:
+            file.write(self.to_json())
+
+
+    def scores(self):
+        intra = sum([col.get_similarity() for col in self.clusters]) / len(self.clusters)
+        extra = self.cluster_linkage()
+        silho = self.silhouette_score()
+
+
+
+        return intra, extra, silho
+
+
+
+
+
+
+
+
     def print_table(self):
         for index in range(len(self.clusters)):
             for email in self.clusters[index]:

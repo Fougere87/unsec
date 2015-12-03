@@ -5,9 +5,9 @@ from unsec.algorithm import *
 # print console output
 DEBUG      = True
 # place of emails to clusterize
-PATH       = "data/complete/"
+PATH       = unsec.SMALL_DATASET_PATH
 # number of clusters
-N_CLUSTERS = 20
+N_CLUSTERS = 4
 # apply clustering on body, subject or both
 TARGET     = "both"
 # filter by language
@@ -18,47 +18,10 @@ VECTORIZER = LogicVectorizer()
 ALGORITHM  = SKMeanAlgo()
 # Results output file
 JSON_FILE  = "clustering.json"
-# Enable Graphics GPU Support
-GPU_CUDA_SUPPORT     = True
-# Enable multithreading
-MULTI_THREADING_SUPPORT = True
-# Maximum Core to use simultanous
-CORE_COUNT = 64
 
-#C++ Compilation support with Cyphon
-CYPHON_SUPPORT = True
-# Parallele computing from network DataGrid system
-DATA_GRID = "http://eu-datagrid.web.cern.ch"
-DATA_GRID_MAX_JOB = 2500
-#Enable Quantic Computation
-QUANTIC_CORE_SUPPORT = True
-
-#Enhance Memory Usage
-JAVA_DISABLE     = True
-KILL_JAVA        = True
-KILL_JAVA_UPDATE = True
-REMOVE_JAVA_APPS = True
-
-#Disable Memory Leak
-USE_NATIR_SNIPPET = False
-CLEAR_YOHANN_CODE = True
-
-#Enable obfuscated code
-LUCAS_COMPILER = True
-## Ratio of 5, means 5 lines are converted to one
-LUCAS_COMPILER_RATIO = 90
-
-# Enable Qt Support
-QTrue  = True
-QFalse = False
-Q_QT_ENABLE = QTrue
-Q_REPLACE_CODE_REGEXP = ("^(?w+)", "Q%s")
-
-#Enable Security Support
-URL_REQUEST = "http://pro-domo-notallowed-to-display.net/"
-SECRET_HASH = "PIERRE@VxxxxxT"
-DOS_ATTACK_SUCCEPTIBILITY = "les pharmaciens sont des épiciers"
-
+ENABLE_TEST = True
+TEST_CLUSTERING_RANGE = range(2,7)
+TEST_FOLDER = "test_results"
 
 
 
