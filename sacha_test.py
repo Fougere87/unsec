@@ -9,40 +9,59 @@ from unsec import EmailCollection, TestEmailCollection
 from unsec import Clusterizer, Assessor
 from unsec import tools
 
-
-logging.basicConfig(level=logging.INFO)
-
-
-
-collection = TestEmailCollection()
+from sklearn import metrics
+import numpy as np
+import multiprocessing as mp
+from threading import Thread
 
 
 
 
-# collection.keep_lang("fr")
+
+# logging.basicConfig(level=logging.INFO)
 
 
-engine = Clusterizer(collection,target="subject",algorithm=HierarchicalAlgo(n_clusters=4), vectorizer = LogicVectorizer())
+
+collection = EmailCollection(unsec.SMALL_DATASET_PATH)
+
+
+
+# # collection.keep_lang("fr")
+
+
+engine = Clusterizer(collection,
+                            target         = "both",
+                            algorithm      = HierarchicalAlgo(),
+                            vectorizer     = TfidfVectorizer())
+
+
 engine.compute()
 
 
-# input("press to see")
+for col in engine.clusters:
+    print("==cluster==")
+    for email in col:
+        print("---email---")
+        print("subject   :",email.get_subject())
+        print("body      :",email.get_body())
 
-for coll in engine.clusters:
-    print("#======= CLUSTER =========")
-    for email in coll:
-        print(email.get_subject(), " ", email.clean)
-
-
-
-
-
-# tester = Assessor(engine)
-
-# tester.compute()
+        print("clean     :",email.clean)
 
 
+# engine.run_cleaner()
+# engine.run_vectorizer()
 
+# for n in range(2,100):
+
+
+#     engine.algorithm.n_clusters = n
+#     engine.run_algorithm()
+
+
+#     intra = sum(engine.cluster_similarity()) / n
+#     inter = engine.cluster_linkage()
+#     sil   = engine.cluster_silhouette_score()
+#     print(n,intra, inter, sil,sep="\t")
 
 # print(tester.categories)
 

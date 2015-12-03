@@ -13,10 +13,12 @@ from unsec import Email, tools
 import logging
 
 class EmailCollection(object):
-    def __init__(self, name = None):
+    def __init__(self, directory = None, name = None):
         self.emails  = []
         self.log     = logging.getLogger(__name__)
         self.name    = name
+        if directory is not None:
+            self.add_from_directory(directory)
 
 
     def get_emails(self):
@@ -51,12 +53,6 @@ class EmailCollection(object):
         for f in glob.glob(directory+"/*"):
             self.add_file(f)
 
-    def add_from_files(self, directory):
-        """
-        add email from files
-        """
-        for f in glob.glob(directory):
-            self.add_file(f)
 
     def get_subjects(self):
         """
@@ -144,6 +140,13 @@ class EmailCollection(object):
 
         return vectors
 
+    def get_centroid(self):
+        return tools.barycenter(self.get_vectors())
+
+    def get_similarity(self):
+        center = self.get_centroid()
+        return tools.avg_distance(self.get_vectors(), center)
+
 
 
 
@@ -157,3 +160,5 @@ class EmailCollection(object):
 
     def __str__(self):
         return "Collection of {} emails".format(self.count())
+
+

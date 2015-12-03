@@ -67,7 +67,10 @@ class Email(object):
         Detect language from the body. This method takes some time
         @return string lang     can be 'fr' or 'en'
         """
-        lang   = detect(self.get_body())
+        try:
+            lang   = detect(self.get_body())
+        except:
+            return None
         return lang
 
 

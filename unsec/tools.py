@@ -50,9 +50,44 @@ def variance(vectors):
     for vector in vectors:
         var += euclidian_distance(vector, center)
     return var
+#===============================================================
 
+def avg_distance(vectors, ref_vector, distance_func = euclidian_distance):
+    assert len(vectors) >  0, "vectors is empty or"
+    distance   = 0
 
+    for vector in vectors:
+        distance += distance_func(ref_vector, vector)
 
+    distance = distance /(len(vectors))
+
+    return distance
+#===============================================================
+def silhouette_samples(X, labels ):
+
+    # PRobably wrong with avg_distance
+    samples = []
+    for index in range(len(X)):
+        vector = X[index]
+        label  = labels[index]
+        vin    = [X[i] for i in range(len(X)) if labels[i] == label]
+        a      = avg_distance(vin, vector)
+
+        list_b = []
+        for l in set(labels):
+            if l != label:
+                vout  = [X[i] for i in range(len(X)) if labels[i] == l]
+                list_b.append(avg_distance(vout, vector))
+
+        b = min(list_b)
+        s = (b-a) / max(a,b)
+        samples.append(s)
+
+    return samples
+#===============================================================
+def silhouette_score(X, labels ):
+    samples = silhouette_samples(X, labels)
+    return sum(samples) / len(samples)
 
 
 #===============================================================

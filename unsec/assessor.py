@@ -1,5 +1,5 @@
 import itertools
-from unsec import Clusterizer
+from unsec import Clusterizer, tools
 
 class Assessor(object):
     def __init__(self, clusterizer : Clusterizer):
@@ -7,6 +7,7 @@ class Assessor(object):
 
         self.total_categories = self._get_total_categories_()
         self.total            = self._get_total_()
+
 
 
 
@@ -28,8 +29,10 @@ class Assessor(object):
 
 
     def compute(self):
+        pass
 
-        print(self.guess_categories())
+
+
         # for collection in self.clusters:
         #     x= sorted(collection.get_categories().items(), key=lambda x: x[1], reverse=True)
         #     print(x)
@@ -62,10 +65,6 @@ class Assessor(object):
         #     if len(x) > 0:
         #         categories[x[0]]
 
-
-
-    def intragroup_distance(self):
-        pass
 
 
 

@@ -17,7 +17,7 @@ def convert(filename):
 
 
 
-for filename in glob.glob("unsec/dataset/large/*.txt"):
+for filename in glob.glob("unsec/dataset/weather/*.txt"):
 
     with open(filename+".email","wb") as file:
         email = convert(filename)
