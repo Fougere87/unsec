@@ -13,22 +13,12 @@ TARGET     = "both"
 # filter by language
 LANG       = "fr"
 # Which Vectorizer to use : LogicalVectorizer or TfidfVectorizer
-VECTORIZER = LogicVectorizer()
+VECTORIZER = TfidfVectorizer()
 # which algorithm to use : SKMeanAlgo or HierarchicalAlgo
-ALGORITHM  = SKMeanAlgo()
+ALGORITHM  = HierarchicalAlgo()
 # Results output file
 JSON_FILE  = "clustering.json"
 
 ENABLE_TEST = True
-TEST_CLUSTERING_RANGE = range(2,7)
+TEST_CLUSTERING_RANGE = range(2,25)
 TEST_FOLDER = "test_results"
-
-
-
-
-
-
-
-
-
-
