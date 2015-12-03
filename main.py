@@ -15,8 +15,9 @@ parser.add_argument('--config',
     help='the config filename witout extension. (By default \"config\")', default="config")
 args = parser.parse_args()
 
+config_name = args.config.replace("/",".")
 
-cfg = __import__(args.config)
+cfg = __import__(config_name, fromlist=[''])
 
 
 if cfg.DEBUG is True:
