@@ -173,19 +173,19 @@ for clust_ens in sub_clusters :
 # cluster4 = " ".join(Clustering.get_clustered_docs(k_means.labels_, coll.all_cleaned_bodies)[3])
 #
 #
-# def ntop_inverse_tf(raw, n) :
-#     tab =list(set(raw.split(" ")))
-#     l = len(raw.split(" "))
-#     result = []
-#     counts = [[]for i in range(2)]
-#     counts[0]=tab
-#     counts[1]=[raw.count(word)/l for word in tab]
-#     for j in range(n) :
-#         i = counts[1].index(max(counts[1]))
-#         result.append(counts[0][i])
-#         counts[0].pop(i)
-#         counts[1].pop(i)
-#     return result
+def ntop_inverse_tf(raw, n) :
+    tab =list(set(raw.split(" ")))
+    l = len(raw.split(" "))
+    result = []
+    counts = [[]for i in range(2)]
+    counts[0]=tab
+    counts[1]=[raw.count(word)/l for word in tab]
+    for j in range(n) :
+        i = counts[1].index(max(counts[1]))
+        result.append(counts[0][i])
+        counts[0].pop(i)
+        counts[1].pop(i)
+    return result
 #
 # print(ntop_inverse_tf(cluster1, 30))
 # print(ntop_inverse_tf(cluster2, 30))

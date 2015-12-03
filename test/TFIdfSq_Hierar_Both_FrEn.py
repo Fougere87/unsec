@@ -5,21 +5,20 @@ from unsec.algorithm import *
 # print console output
 DEBUG      = True
 # place of emails to clusterize
-PATH       = unsec.SMALL_DATASET_PATH
+PATH       = "data/complete"
 # number of clusters
 N_CLUSTERS = 4
 # apply clustering on body, subject or both
 TARGET     = "both"
 # filter by language
-LANG       = "fr"
+# LANG       = "fr"
 # Which Vectorizer to use : LogicalVectorizer or TfidfVectorizer
-VECTORIZER = TfidfVectorizer()
+VECTORIZER = TfidfVectorizer(idf_type = "squared")
 # which algorithm to use : SKMeanAlgo or HierarchicalAlgo
 ALGORITHM  = HierarchicalAlgo()
 # Results output file
 JSON_FILE  = "clustering.json"
 
 ENABLE_TEST = True
-
-TEST_CLUSTERING_RANGE = range(2,5)
-TEST_FOLDER = "test_results2"
+TEST_CLUSTERING_RANGE = range(2,25)
+TEST_FOLDER = "test/TFIdfSq_Hierar_Both_FrEn"
