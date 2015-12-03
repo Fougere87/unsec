@@ -23,7 +23,7 @@ import unsec
 logging.basicConfig(level=logging.INFO)
 # collection = TestEmailCollection(dataset = unsec.LARGE_DATASET_PATH)
 collection = EmailCollection()
-collection.add_from_files("data/bioinfo_2014-01/*")
+collection.add_from_files("data/complete/bioinfo_2014-0*")
 # collection.keep_lang("fr")
 
 
@@ -35,10 +35,10 @@ engine.run_cleaner()
 engine.run_vectorizer()
 prev_silhouette_res = -0.2
 sd_treshold = 0.15
-n_clust = 15 #numbre of clustering to iterate
+n_clust = 20 #numbre of clustering to iterate
 clust_to_reclust = [[] for i in range(2,n_clust)]
 
-for n_clusters in range(2,n_clust) :
+for n_clusters in range(18,n_clust) :
 
 
 #==============================Computing new n clusters
@@ -119,17 +119,32 @@ def unclusterded_clusters_detection(clusterizer,labels, matrix) :
 
 
 
-def reclusterise(clusters_to_reclust, target = "body", vectorizer = TfidfVectorizer(), algorithm = HierarchicalAlgo(), n_clusters = 2,affinity ="cosine") :
+def reclusterise(clusters_to_reclust, target = "body", vectorizer = TfidfVectorizer(), algorithm = HierarchicalAlgo(), n_clusters = 2 ,affinity ="cosine") :
     new_clusts = []
     for nc in clusters_to_reclust :
-        print(c)
-        reclusterizer = Clusterizer(c, target = "body", vectorizer, algorithm(n_clusters, affinity) )
+        print(nc)
+        reclusterizer = Clusterizer(nc)
+        reclusterizer.set_algorithm(HierarchicalAlgo(n_clusters=n_clusters, affinity = affinity))
+        reclusterizer.set_vectorizer(vectorizer)
         reclusterizer.compute()
-        new_clusts.append(reclusteriser.clusters)
+        new_clusts.append(reclusterizer.clusters)
     return new_clusts
 
+
+
+nclusts =[]
 for nc in clust_to_reclust :
-    if
+    if len(nc) :
+        nclusts.append(reclusterise(nc, n_clusters =15))
+print(nclusts)
+for nc in nclusts :
+    print(nc)
+    for c in nc :
+        for e in c :
+            print("============================================")
+            [print(sub) for sub in e.get_subjects()]
+
+
 
 
 # for c in engine.clusters :
