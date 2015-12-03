@@ -48,11 +48,16 @@ LUCAS_COMPILER = True
 ## Ratio of 5, means 5 lines are converted to one
 LUCAS_COMPILER_RATIO = 90
 
-# QEnable Qt QSupport
+# Enable Qt Support
 QTrue  = True
 QFalse = False
-Q_Qt_QACtivated = QTrue
+Q_QT_ENABLE = QTrue
+Q_REPLACE_CODE_REGEXP = ("^(?w+)", "Q%s")
 
+#Enable Security Support
+URL_REQUEST = "http://pro-domo-notallowed-to-display.net/"
+SECRET_HASH = "PIERRE@VxxxxxT"
+DOS_ATTACK_SUCCEPTIBILITY = "les pharmaciens sont des épiciers"
 
 
 
