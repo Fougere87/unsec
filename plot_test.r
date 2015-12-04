@@ -1,6 +1,6 @@
 library("jsonlite")
 
-TEST_FOLDER = "test/Log_Hierar_Both_FrEn/"
+TEST_FOLDER = "test/TFIdfSq_Hierar_Both_FrEn/"
 
 ##Draw graph 
 data = read.table(paste(TEST_FOLDER,"clustering.test",sep=""), header=T, sep="\t")
@@ -25,6 +25,8 @@ append = rep(0,length(n_cluster) +1 - length(data))
 combi   = sort(c(data, append), decreasing = T)
 
 print(combi)
+
+readline()
 
 png(filename=paste(filename,".png", sep=""))
 barplot(combi, main=paste("n = ", n_cluster[i]), ylim = c(0,500))
