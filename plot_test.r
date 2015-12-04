@@ -1,7 +1,7 @@
 
-FOLDER = "test_results"
+file = "test/TFCl_Hierar_Both_Fr/clustering.test"
 
-data = read.table("test_results2/clustering.test", header=T, sep="\t")
+data = read.table(file, header=T, sep="\t")
 
 par(mfrow=c(1,3))
 
