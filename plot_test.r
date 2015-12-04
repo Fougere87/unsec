@@ -5,11 +5,12 @@ TEST_FOLDER = "test/TFIdfSq_Hierar_Both_FrEn/"
 ##Draw graph 
 data = read.table(paste(TEST_FOLDER,"clustering.test",sep=""), header=T, sep="\t")
 
+png(filename=paste(TEST_FOLDER,"plot.png", sep=""))
 par(mfrow=c(1,3))
-
 plot(data$intra, main="mean Intra distance", type="l", xlab ="number of cluster")
 plot(data$extra, main="exta distance", type="l", xlab ="number of cluster")
 plot(data$silhouette, main="Silhouette score", type="l", xlab ="number of cluster")
+dev.off()
 
 n_cluster = data$n_cluster
 
@@ -26,7 +27,6 @@ combi   = sort(c(data, append), decreasing = T)
 
 print(combi)
 
-readline()
 
 png(filename=paste(filename,".png", sep=""))
 barplot(combi, main=paste("n = ", n_cluster[i]), ylim = c(0,500))
