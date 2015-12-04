@@ -11,7 +11,7 @@ N_CLUSTERS = 4
 # apply clustering on body, subject or both
 TARGET     = "both"
 # filter by language
-# LANG       = "fr"
+LANG       = "fr"
 # Which Vectorizer to use : LogicalVectorizer or TfidfVectorizer
 VECTORIZER = TfidfVectorizer(idf_type = "probabilistic")
 # which algorithm to use : SKMeanAlgo or HierarchicalAlgo

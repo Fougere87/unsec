@@ -145,6 +145,7 @@ class EmailCollection(object):
         vectors = []
         # WORKS ONLY IF CLUSTERIZER HAS BEEN PROCESS
         for email in self.get_emails():
+            
             vectors.append(email.vector)
 
         return vectors
