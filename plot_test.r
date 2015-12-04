@@ -5,7 +5,7 @@ TEST_FOLDER = "test/TFIdfSq_Hierar_Both_FrEn/"
 ##Draw graph 
 data = read.table(paste(TEST_FOLDER,"clustering.test",sep=""), header=T, sep="\t")
 
-png(filename=paste(TEST_FOLDER,"plot.png", sep=""))
+png(filename=paste(TEST_FOLDER,"plot.png", sep=""), width=800, height=300)
 par(mfrow=c(1,3))
 plot(data$intra, main="mean Intra distance", type="l", xlab ="number of cluster")
 plot(data$extra, main="exta distance", type="l", xlab ="number of cluster")
