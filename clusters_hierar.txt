@@ -1,0 +1,115 @@
+102
+CLUSTER====================
+[bioinfo] Sujet stage de M2R - Comparaison de méthodes d'analyse (IBC, Montpellier)
+[bioinfo] La société Dassault Systèmes propose 3 stages rémunérés en bioinformatique d’unedurée de 6 mois.
+[bioinfo] Short-term position at CEA Saclay : Signal processing and data
+ analysis for non-targeted detection of contaminants in food by LC-MS mass
+ spectrometry
+[bioinfo] Postes en mobilitéà l'Institut Français de Bioinformatique
+[bioinfo] Post-Doc 2 years Univ Montpellier France / Sanger UK / CIRMF Gabon
+CLUSTER====================
+[bioinfo] ESWC 2014 Final Call for PhD Symposium
+[bioinfo] DILS 2014 Lisbon - 2nd Call for Papers
+[bioinfo] ESWC 2014 Final Call for Papers
+CLUSTER====================
+[bioinfo] poste MCF (CNU 27) en bioinformatique à Paris Sud - Orsay
+[bioinfo] Offre de stage M1/M2 - Inria Rennes - assemblage metagénomique
+[bioinfo] Reminder: The third DNA metabarcoding spring school in Tromsø , Norway, 31 March - 5 April 2014
+[bioinfo] Stage Master Biostat Montpellier
+[bioinfo] Post-doctoral position in bioimage and bioinformatics for microRNA therapeutics in heart failure
+[bioinfo] Postdoctoral position in genomics/bio-informatics (NGS) at University of Rennes 1 (France)
+[bioinfo] two Post-Doctoral Research Positions in computational structural biology / structural bioinformatics (INRIA Grenoble)
+[bioinfo] Offre de stage M1/M2 - Inria Rennes - assemblage metagénomique
+[bioinfo] Postes MCF et PR au LIF - Aix-Marseille
+[bioinfo] Poste MCU Bioinformatique Structurale (CNU 64) à l' Université de Nantes
+[bioinfo] Workshop: DNA metabarcoding in Tromsø , Norway, 4 - 5 April 2014
+[bioinfo] stage en bioinformatique Neurocentre Magendie
+[bioinfo] CALL FOR PAPERS ACA 2014
+[bioinfo] Offre de stage de Master bio-info
+[bioinfo] Poste MCF Bioinformatique/Biostatistique Toulouse
+[bioinfo] Poste CDD Ingénieurdéveloppementsystème d'informations
+[bioinfo] 2nd appel à contributions TSI : numérospécial sur le rôle des irrégularités dans les automates cellulaires et les réseaux d'automates
+[bioinfo] Permanent research position in Biomedical Knowledge Extraction from
+ Text, INRA France 
+[bioinfo] Poste MCU en Eco-Genomique
+[bioinfo] Proposition de Stage M2 Bioinformatique
+[bioinfo] Proposition de stage M2 au LBBE à Lyon
+[bioinfo] Last call for early bird registration, Evry'14 Thematic Research School
+[bioinfo] CDD Ingénieur NGS - Institut Curie
+[bioinfo] POST DOCTORAL RESEARCH POSITION in quantitative genetics and machine learning (University of Liège)
+[bioinfo] Bioinformaticien a Chypre
+[bioinfo] Offre de stage - INRA Versailles - Assemblage mitochondries
+[bioinfo] EMPLOI: Biostatisticien H/F - CDD de 12 mois renouvelable -
+ Montpellier
+[bioinfo] Bioinformatician at CRG Genomics core facility - Barcelona
+[bioinfo] Short course in Infectious diseases at Imperial College London 8-19 September: applications are now open
+[bioinfo] CDD 2 ans - Conception du Système d'Information pour le projet Investissement d'Avenir CRB-Anim (http://www.crb-anim.fr/)
+[bioinfo] Rgistration deadline Feb 15 : Mathematical and Computational Evolutionary
+ Biology, 15-19 June 2014, Montpellier
+[bioinfo] Stage Master- Ingénieur en Bioinformatique et Génomique
+[bioinfo] Recherche candidat thèse Fouille de données - LIFO/Univ. d' Orléans , France
+[bioinfo] Announcement: FMMB 2014
+[bioinfo] ECCB/JOBIM 2014 : 2ème Appel pour les propositions de Workshops et Tutoriaux
+CLUSTER====================
+[bioinfo] [Emploi][CDI autre] RESPONSABLE DU PLATEAU TECHNIQUE STOCKAGE DE DONNEES ET CALCUL INTENSIF
+[bioinfo] [Emploi][CDI autre] INGENIEUR STATISTICIEN
+[bioinfo] RAPPEL : séminaire CIT sur la génomique du cancer de la vessie jeudi 16 janvier
+[bioinfo] [Emploi][Stage] Analyse comparative des transcr  iptomes de stades embryonnaires équivalents de   trois espècesd’Ascidies
+[bioinfo] [Emploi][Post-doc / IR] Postdoctoral position in genomics/bio-informatics (NGS)
+[bioinfo] [Emploi][Post-doc / IR] Post-doc position in switchgrass genomics: Phenotypic and expression QTL analysis for frost tolerance in switchgrass
+[bioinfo] [Emploi][Post-doc / IR] Post-doc position in Computational Genomics: Annotation and analysis of the genome of Aegilops tauschii
+[bioinfo] [Emploi][Post-doc / IR] Analyse bioinformatique   de données de séquençage haut- débit (Exome   et re- séquencage de gènes cibles)
+[bioinfo] [Emploi][Stage] Stage de M1 : Développement d'  un utilitaire permettant de calculer une série   d'indicateur de la qualité d'un assemblage de   transcriptome de novo (données issues de séquençage haut débit) et d' améliorer la qualit  é des contigs produits. 
+[bioinfo] [Emploi][CDD Ingénieur ] Ingénieur d' étude en   bioinformatique – Diagnostic génétique 
+[bioinfo] [Emploi][CDI autre]  INGENIEUR BIOINFORMATICIEN   « METABOLOMIQUE » 
+[bioinfo] [Emploi][Post-doc / IR] Post-doc position in grass genetics: Genetic analyses in Setaria viridis, a model for switchgrass
+[bioinfo] [Emploi][Stage] Stratégiesd’analyses de tra  nscriptomes et Applications àl’Analysed’expériences RNA-seq  d’Aedes albopictus, vec  teur du virus du chikungunya
+[bioinfo] [Emploi][Post-doc / IR] STATISTIQUE GENETIQUE ET BIO-INFORMATIQUE
+[bioinfo] SAVE THE DATE ! : SeMoVi Seminar, 28 January, 2 to 6 pm, Lyon
+[bioinfo] Formation "Analyse des données RNA-Seq et ChIP-Seq pour les biologistes"
+[bioinfo] [Emploi][Post-doc / IR] Ingénieur(e) bio-infor  maticien, bio-analyste
+[bioinfo] [Emploi][Post-doc / IR] Postdoc in computational biology of cancer
+[bioinfo] [Emploi][CDD Ingénieur ] Ingénieur en Bioinfor  matique
+[bioinfo] A young investigator position open at the Institute for Computational
+ Biology (IBC) of Montpellier (France)
+[bioinfo] [Emploi][Post-doc / IR] Post-Doctoral Position on Novel FFT Docking Techniques
+[bioinfo] Les Bioinformations #5
+[bioinfo] [Emploi][PR] Professeur de Biologie Moléculair  e et Epigénétique
+[bioinfo] [Emploi][Post-doc / IR] Postdoctoral or engineer position in bioinformatics
+[bioinfo] [Emploi][Stage] Stage de M2 : Algorithmique de   graphe pour l’analyse de trajectoires d’év  olution de structures moléculaires
+[bioinfo] [Emploi][Post-doc / IR] Bioinformatic analyses of plant genomic data (Arabidopsis thaliana and Brassica napus)
+[bioinfo] [Emploi][MdC] Maître de Conférences en Bioinf  ormatique (CNU 27 n°0760 Galaxie)
+[bioinfo] Formations...
+[bioinfo] [Emploi][CDI autre] BIO-STATISTICIEN
+[bioinfo] research internship @ Xerox Research Centre Europe
+[bioinfo] Santorini 2014 conference on systems biology and applications to personalized health and therapy
+[bioinfo] [Emploi][Post-doc / IR] Bioinformaticien
+[bioinfo] [Emploi][PR] Poste de Professeur en 65/64 èmes   sections – Bioinformatique
+[bioinfo] [Emploi][CDD Ingénieur ] Ingénieur /Administrat  eur Base de données
+[bioinfo] Colloque "Indexing scientific big data" - registration < 9 jan
+[bioinfo] postes en biostatistique à Paris Descartes
+[bioinfo] [Emploi][Stage] STAGIAIRE INGENIEUR EN BIOINFORMATIQUE (RESISTOME, ONTOLOGY)
+[bioinfo] [Emploi][Stage] Stage de M2 - Analyse génomiqu  e et transcriptomique des sarcomes
+[bioinfo] [Emploi][Stage] Identification de nouveaux doma  ines protéiques dans le génome du paludisme
+[bioinfo] journéeprotéomique , 3 février
+[bioinfo] Workshop Bioinformatique pour la Génomique Environnementale Lyon 27-28 mai
+[bioinfo] M1/M2 stages à Montpellier
+[bioinfo] EMBL Master Course Bioimage Data Analysis (BIAS 2014) in May
+ (Heidelberg)
+[bioinfo] RE: Sujets stage de Master 2 (Montpellier) - projet SIFR
+[bioinfo] Formations Statistiques avec R
+[bioinfo] Poste MCF Bioinfo/Biostat
+[bioinfo] 2nd CFP  - Deadline extension - Special issue of BMC Bioinformatics
+ on BioNLP Shared Task 2013 
+[bioinfo] [Emploi][CDI autre] Ingénieur(e) de développe  ment informatique
+[bioinfo] [Emploi][Post-doc / IR] Ingénieur en développ  ement systèmes d'informations
+[bioinfo] [Emploi][MdC] Maitre de Conférences en statist  ique
+[bioinfo] [Emploi][Post-doc / IR] Post-Doctoral Position on Novel algorithms for annotating and fitting of electron density
+[bioinfo] [Emploi][CDI autre] INGENIEUR BIOINFORMATICIEN   « GENOMIQUE ET TRANSCRIPTOMIQUE » 
+[bioinfo] [Emploi][Stage] Stage de recherche M2, structur  e d'indexation pour le suivi de la leucémie
+[bioinfo] [Emploi][Post-doc / IR] Postdoctoral Position in Computational Biology
+[bioinfo] [Emploi][Post-doc / IR] Post-Doc in Neuroimaging-genetics
+[bioinfo] [Emploi][Stage] Conception d’une banque de do  nnées MS/MS de protéines
+[bioinfo] Stage Master ou CDD - 3 à 6 mois - Text Mining et Life Sciences - Paris
+[bioinfo] [Emploi][Stage] Analyses statistiques de donné  es
+[bioinfo] [Emploi][Post-doc / IR] Research Associate - Bioinformatics
